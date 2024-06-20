@@ -35,6 +35,6 @@ public class User {
     @Override
     public String toString()//TODO za sad ovako
     {
-        return "Korisnik "+ name;
+        return "User "+ name;
     }
 }

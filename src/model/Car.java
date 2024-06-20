@@ -18,9 +18,9 @@ public class Car extends Vehicle{
     @Override
     public String toString()
     {
-        return "Automobil " + super.toString()
-                + ", datum nabavke=" + purchaseDate
-                + ", opis=" + description + "]";
+        return "Car " + super.toString()
+                + ", purchase date=" + purchaseDate
+                + ", description=" + description + "]";
     }
 
 }

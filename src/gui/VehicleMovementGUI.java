@@ -5,6 +5,7 @@ import util.DataLoader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,16 +41,18 @@ public class VehicleMovementGUI extends JFrame {
             }
         }
     }
-    public static void simulateMovement()
-    {
-        for (Rental rental : Simulation.rentals) {
-            rental.start();
 
-            try {
-                rental.join(); // Čekanje da se trenutna simulacija završi pre početka sledeće
-                Thread.sleep(5000); // Pauza od 5 sekundi između simulacija
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public void resetGrid() {
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++) {
+                if (i >= 5 && i <= 14 && j >= 5 && j <= 14) {
+                    gridPanels[i][j].setBackground(Color.CYAN); // Restore the original color for the specified region
+                } else {
+                    gridPanels[i][j].setBackground(null); // Restore the default color
+                }
+                gridPanels[i][j].removeAll();
+                gridPanels[i][j].revalidate();
+                gridPanels[i][j].repaint();
             }
         }
     }
@@ -74,5 +77,7 @@ public class VehicleMovementGUI extends JFrame {
         panel.add(label);
         panel.revalidate();
         panel.repaint();
+        System.out.println("Vehicle ID: " + vehicle.getID() + " updated on grid at (" + x + ", " + y + ")");
+
     }
 }

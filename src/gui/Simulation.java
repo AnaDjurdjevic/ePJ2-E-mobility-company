@@ -17,12 +17,33 @@ public class Simulation {
     public static List<Rental> rentals = new ArrayList<>();
     public static Map<LocalDateTime,List<Rental>> blockOfRentals = new HashMap<>();
 
-
+    private static void simulateMovement(VehicleMovementGUI vMGui)
+    {
+        for (Map.Entry<LocalDateTime, List<Rental>> entry : Simulation.blockOfRentals.entrySet()) {
+            List<Rental> rentalList = entry.getValue();
+            for (Rental rental : rentalList) {
+                rental.start();
+            }
+            for (Rental rental : rentalList) {
+                try {
+                    rental.join();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            vMGui.resetGrid();
+        }
+    }
     public static void main(String[] args) {
         VehicleMovementGUI gui = new VehicleMovementGUI();
         DataLoader.loadVehicles();
         DataLoader.loadRentals(gui);
-        gui.simulateMovement();
+        simulateMovement(gui);
     }
 }
 

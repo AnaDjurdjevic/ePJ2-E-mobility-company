@@ -76,6 +76,7 @@ public class DataLoader {
         }
     }
     public static void loadRentals(VehicleMovementGUI vMGui) {
+        Random random = new Random();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
         Properties appProps = new Properties();
         try {
@@ -110,7 +111,7 @@ public class DataLoader {
                         String endLocation = line[4];
                         int duration = Integer.parseInt(line[5]);
                         if ("da".equals(line[6])) {
-                            Simulation.vehicles.get(vehicleId).setMalfunction(new Malfunction("", LocalDateTime.now()));
+                            Simulation.vehicles.get(vehicleId).setMalfunction(new Malfunction("malfunction" + random.nextInt(), LocalDateTime.now()));
                         }
                         boolean hasPromotion = line[7].equalsIgnoreCase("da");
                         Location start = new Location(Integer.parseInt(startLocation.split(",")[0]), Integer.parseInt(startLocation.split(",")[1]));
@@ -136,7 +137,15 @@ public class DataLoader {
             e.printStackTrace();
         }
         Collections.sort(Simulation.rentals, Comparator.comparing(Rental::getDateAndTime));
-        //TODO blokovi
+        for (Rental rental : Simulation.rentals) {
+            LocalDateTime dateTime = rental.getDateAndTime();
+            try {
+                Simulation.blockOfRentals.computeIfAbsent(dateTime, k -> new ArrayList<>()).add(rental);
+            }catch(ConcurrentModificationException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private static String[] splitCSVLine(String line) {

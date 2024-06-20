@@ -115,9 +115,9 @@ public abstract class Vehicle {
     public String toString()
     {
         return "[ID=" + ID +
-                ", proizvodjac=" + manufacturer +
+                ", manufacturer=" + manufacturer +
                 ", model=" + model +
-                ", cijena nabavke=" + purchasePrice +
-                ", kvar=" + malfunction;
+                ", purchase price=" + purchasePrice +
+                ", malfunction=" + malfunction;
     }
 }

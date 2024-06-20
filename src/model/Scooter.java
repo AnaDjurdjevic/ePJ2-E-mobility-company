@@ -12,7 +12,7 @@ public class Scooter extends Vehicle{
     @Override
     public String toString()
     {
-        return "Trotinet " + super.toString()
-                + ", maksimalna brzina=" + maxSpeed + "]";
+        return "Scooter " + super.toString()
+                + ", maximum speed=" + maxSpeed + "]";
     }
 }

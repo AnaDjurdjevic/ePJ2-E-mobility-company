@@ -106,49 +106,62 @@ public class Rental extends Thread{
     }
     @Override
     public void run() {
-        int steps = Math.abs(endLocation.getX() - startLocation.getX())+ Math.abs(endLocation.getY() - startLocation.getY());
+        System.out.println("Starting rental for vehicle ID: " + vehicle.getID() + " at " + dateAndTime);
+
+        int steps = Math.abs(endLocation.getX() - startLocation.getX()) + Math.abs(endLocation.getY() - startLocation.getY()) + 1;
         int stepDuration = duration / steps;
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
+
         vMGui.updateGrid(-1, -1, currentX, currentY, vehicle);
+        sleepForDuration(stepDuration);
+
+        currentX = moveHorizontally(currentX, currentY, stepDuration);
+        moveVertically(currentX, currentY, stepDuration);
+
+        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
+        System.out.println("Finished rental for vehicle ID: " + vehicle.getID() + " at " + dateAndTime);
+
+        sleepForDuration(stepDuration);
+        //TODO kako se vozilo pomijera provjeravaj ima li kvar
+        //TODO omoguciti preklapanje vise vozila
+    }
+
+    private int moveHorizontally(int currentX, int currentY, int stepDuration) {
         while (currentX != endLocation.getX()) {
             int prevX = currentX;
             currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
             vehicle.dischargeBattery(stepDuration);
-            if(isLocationInWider(prevX,currentX))
-            {
-                wasInTheWiderPart = true;
-            }
+            checkWiderPart(currentX, currentY);
             vMGui.updateGrid(prevX, currentY, currentX, currentY, vehicle);
-            try {
-                sleep(stepDuration * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleepForDuration(stepDuration);
         }
+        return currentX;
+    }
+
+    private void moveVertically(int currentX, int currentY, int stepDuration) {
         while (currentY != endLocation.getY()) {
             int prevY = currentY;
             currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
             vehicle.dischargeBattery(stepDuration);
-            if(isLocationInWider(currentX,prevY))
-            {
-                wasInTheWiderPart = true;
-            }
+            checkWiderPart(currentX, currentY);
             vMGui.updateGrid(currentX, prevY, currentX, currentY, vehicle);
-            try {
-                sleep(stepDuration * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleepForDuration(stepDuration);
         }
+    }
+
+    private void checkWiderPart(int x, int y) {
+        if (isLocationInWider(x, y)) {
+            wasInTheWiderPart = true;
+        }
+    }
+
+    private void sleepForDuration(int stepDuration) {
         try {
             sleep(stepDuration * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
-        //TODO kako se vozilo pomijera provjeravaj ima li kvar i da li je baterija prazna
-        //TODO omoguciti preklapanje vise vozila
     }
     @Override
     public boolean equals(Object obj)

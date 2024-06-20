@@ -14,7 +14,7 @@ public class Bicycle extends Vehicle{
     @Override
     public String toString()
     {
-        return "Bicikl " + super.toString()
-                + ", autonomija=" + autonomy + "]";
+        return "Bicycle " + super.toString()
+                + ", autonomy=" + autonomy + "]";
     }
 }

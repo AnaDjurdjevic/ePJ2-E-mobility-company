@@ -16,6 +16,6 @@ public class Malfunction {
     @Override
     public String toString()
     {
-        return "razlog kvara="+ reason + ", datum i vrijeme kvara=" + dateAndTime;
+        return " malfunction reason="+ reason + ", date and time of malfunction=" + dateAndTime;
     }
 }
