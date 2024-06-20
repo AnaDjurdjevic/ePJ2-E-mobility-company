@@ -8,21 +8,17 @@ public class Bill {
     private double totalPayment;
     private double discount = 0.0;
     private double discountProm = 0.0;
+    private double distance;
+    private double initialPrice;
 
     public Bill(Rental rental)
     {
         this.rental = rental;
+
+
         amount = 0.0;
         totalPayment = 0.0;
-        Parameters parameters = Parameters.getInstance();
-        if(rental.isHasDiscount())
-        {
-            discount = parameters.getDiscount();
-        }
-        if(rental.isHasPromotion())
-        {
-            discount = parameters.getDiscountProm();
-        }
+        distance = 0.0;
     }
 
     public Rental getRental() {
@@ -49,34 +45,43 @@ public class Bill {
         this.totalPayment = totalPayment;
     }
 
-    private double calculateDistance() {
-
-        double unitPrice;
-        double distancePrice;
+    private void calculateDistance() {
+        double unitPrice = getUnitPrice();
+        double distancePrice = getDistancePrice();
+        distance = unitPrice * distancePrice;
+    }
+    private void calculateDiscount()
+    {
         Parameters parameters = Parameters.getInstance();
-
-        if (rental.getVehicle() instanceof Car) {
-            unitPrice = parameters.getCarUnitPrice();
-        } else if (rental.getVehicle() instanceof Bicycle) {
-            unitPrice = parameters.getBikeUnitPrice();
-        } else if (rental.getVehicle() instanceof Scooter) {
-            unitPrice = parameters.getScooterUnitPrice();
-        } else {
-            throw new IllegalArgumentException("Unknown vehicle type");
+        if(rental.isHasDiscount())
+        {
+            discount = initialPrice * parameters.getDiscount()/100;
         }
+    }
 
-        if (rental.getVehicle().wasInTheWiderPart) {
-            distancePrice = parameters.getDistanceWide();
-        } else {
-            distancePrice = parameters.getDistanceNarrow();
+    private void calculateDiscountProm()
+    {
+        Parameters parameters = Parameters.getInstance();
+        if(rental.isHasPromotion())
+        {
+            discountProm = initialPrice * parameters.getDiscountProm()/100;
         }
+    }
 
-        return unitPrice * distancePrice;
+    private void calculateInitialPrice()//TODO provjeri za kvar
+    {
+        if(rental.getVehicle().getMalfunction()==null)
+        {
+            double unitPrice = getUnitPrice();
+            initialPrice = rental.getDuration() * unitPrice;
+        }else {
+            initialPrice = 0.0;
+        }
     }
     private void calculateAmount()
     {
         try {
-            amount = calculateDistance() * rental.getDuration();
+            amount = distance * rental.getDuration();
         }catch (IllegalArgumentException ex)
         {
             amount = 0.0;
@@ -87,5 +92,31 @@ public class Bill {
     private void calculateTotalPayment()
     {
         totalPayment = amount - (amount * discount)- (amount * discountProm);
+    }
+    private double getUnitPrice()
+    {
+        double unitPrice;
+        Parameters parameters = Parameters.getInstance();
+        if (rental.getVehicle() instanceof Car) {
+            unitPrice = parameters.getCarUnitPrice();
+        } else if (rental.getVehicle() instanceof Bicycle) {
+            unitPrice = parameters.getBikeUnitPrice();
+        } else if (rental.getVehicle() instanceof Scooter) {
+            unitPrice = parameters.getScooterUnitPrice();
+        } else {
+            throw new IllegalArgumentException("Unknown vehicle type");
+        }
+        return unitPrice;
+    }
+    private double getDistancePrice()
+    {
+        double distancePrice;
+        Parameters parameters = Parameters.getInstance();
+        if (rental.wasInTheWiderPart) {
+            distancePrice = parameters.getDistanceWide();
+        } else {
+            distancePrice = parameters.getDistanceNarrow();
+        }
+        return distancePrice;
     }
 }

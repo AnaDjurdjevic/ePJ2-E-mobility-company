@@ -47,7 +47,7 @@ public class DataLoader {
                         if (Simulation.vehicles.containsKey(line[0])) {
                             throw new DuplicateValueException("Duplicate vehicle ID "+line[0]);
                         }
-                        switch (line[8]) {//TODO da li je dobro rjesenje sa switch?
+                        switch (line[8].toLowerCase()) {//TODO da li je dobro rjesenje sa switch?
                             case "automobil":
                                 Simulation.vehicles.put(line[0], new Car((line[0]), line[1], line[2], Double.parseDouble(line[4]), LocalDate.parse(line[3], formatter),
                                         (line[7])) {
@@ -76,7 +76,7 @@ public class DataLoader {
             e.printStackTrace();
         }
     }
-    public static void loadRentals(GridPanel gridPanel) {
+    public static void loadRentals(VehicleMovementGUI vMGui) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
         Properties appProps = new Properties();
         try {
@@ -92,33 +92,31 @@ public class DataLoader {
             content.forEach(p -> {
                 try {
                     if (!p.contains("Datum")) {
-                        String[] line = p.split(",");
+                        String[] line = splitCSVLine(p);
                         for (int i = 0; i < line.length; i++) {
                             line[i] = line[i].trim();
                             if(line[i].equals(""))
                             {
-                                throw new IncorrectInputFormatException("Missing inputs!");
+                                throw new IncorrectInputFormatException("Missing inputs in line " + p);
                             }
                         }
-                        if(line.length != 10)
+                        if(line.length != 8)
                         {
                             throw new IncorrectInputFormatException("Incorrect rental input line "+ p);
                         }
                         LocalDateTime datetime = LocalDateTime.parse(line[0], formatter);
                         User user = new User(line[1]);
                         String vehicleId = line[2];
-                        String startLocationX = line[3].replace("\"","");
-                        String startLocationY = line[4].replace("\"","");;
-                        String endLocationX = line[5].replace("\"","");;
-                        String endLocationY = line[6].replace("\"","");;
-                        int duration = Integer.parseInt(line[7]);
-                        if ("da".equals(line[8])) {
+                        String startLocation = line[3];
+                        String endLocation = line[4];
+                        int duration = Integer.parseInt(line[5]);
+                        if ("da".equals(line[6])) {
                             Simulation.vehicles.get(vehicleId).setMalfunction(new Malfunction("", LocalDateTime.now()));
                         }
-                        boolean hasPromotion = line[9].equalsIgnoreCase("da");
-                        Location start = new Location(Integer.parseInt(startLocationX), Integer.parseInt(startLocationY));
-                        Location end = new Location(Integer.parseInt(endLocationX), Integer.parseInt(endLocationY));
-                        Rental newRental = new Rental(datetime, user, Simulation.vehicles.get(line[2]), start, end, duration, hasPromotion, gridPanel);
+                        boolean hasPromotion = line[7].equalsIgnoreCase("da");
+                        Location start = new Location(Integer.parseInt(startLocation.split(",")[0]), Integer.parseInt(startLocation.split(",")[1]));
+                        Location end = new Location(Integer.parseInt(endLocation.split(",")[0]), Integer.parseInt(endLocation.split(",")[1]));
+                        Rental newRental = new Rental(datetime, user, Simulation.vehicles.get(line[2]), start, end, duration, hasPromotion, vMGui);
                         if (Simulation.rentals.contains(newRental)) {
                             throw new DuplicateValueException("Duplicate rental date "+line[0]+" vehicle ID "+line[2]);
                         }
@@ -144,9 +142,10 @@ public class DataLoader {
         //TODO Sortiranje iznajmljivanja po datumu i vremenu
         //treba napraviti blokove iznajmljivanja
         Collections.sort(Simulation.rentals, Comparator.comparing(Rental::getDateAndTime));
-
+        Simulation.rentals.forEach(r-> System.out.println(r));
+        System.out.println(Simulation.rentals.size());
         // Pokretanje svake simulacije u zasebnoj niti
-        /*for (Rental rental : Simulation.rentals) {
+        for (Rental rental : Simulation.rentals) {
             rental.start();
 
             try {
@@ -155,7 +154,7 @@ public class DataLoader {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     private static String[] splitCSVLine(String line) {

@@ -12,7 +12,6 @@ public abstract class Vehicle {
     protected boolean malfunctioned = false;//ima li potrebe? Moze samo da provjeri da li mu je instanciran objekat Malfunction,
     //ili je laksa provjera putem boolean atributa
     protected Malfunction malfunction;
-    protected boolean wasInTheWiderPart;
 
     public Vehicle(String ID, String manufacturer, String model,
                    double purchasePrice, boolean morePassengers,Malfunction malfunction)
@@ -22,9 +21,8 @@ public abstract class Vehicle {
         this.model = model;
         this.purchasePrice = purchasePrice;
         this.morePassengers = morePassengers;
-        this.malfunction = null; //TODO za sad ovako, kreira se bez kvara
-        this.currentBatteryLevel = 100;// u pocetku je nivo baterije 100
-        this.wasInTheWiderPart = false;
+        this.malfunction = null;
+        this.currentBatteryLevel = 100;
     }
 
     public String getID() {
@@ -41,14 +39,6 @@ public abstract class Vehicle {
 
     public void setCurrentBatteryLevel(double currentBatteryLevel) {
         this.currentBatteryLevel = currentBatteryLevel;
-    }
-
-    public boolean isWasInTheWiderPart() {
-        return wasInTheWiderPart;
-    }
-
-    public void setWasInTheWiderPart(boolean wasInTheWiderPart) {
-        this.wasInTheWiderPart = wasInTheWiderPart;
     }
 
     public Malfunction getMalfunction() {
@@ -68,7 +58,11 @@ public abstract class Vehicle {
 
     public void dischargeBattery(double amount)
     {
-        //TODO
+        this.currentBatteryLevel -= amount;
+        if(this.currentBatteryLevel < 0)
+        {
+            this.currentBatteryLevel = 0;
+        }
     }
 
 

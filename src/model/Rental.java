@@ -1,6 +1,7 @@
 package model;
 
 import gui.GridPanel;
+import gui.VehicleMovementGUI;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -15,13 +16,14 @@ public class Rental extends Thread{
     private int duration;// trajanje korišćenja u sekundama
     private boolean hasPromotion = false;
     private boolean hasDiscount = false;
+    protected boolean wasInTheWiderPart;
     private GridPanel gridPanel;
+    private VehicleMovementGUI vMGui;
 
     public Rental(LocalDateTime dateAndTime, User user, Vehicle vehicle,
                   Location startLocation, Location endLocation, int duration,
-                  boolean hasPromotion, GridPanel gridPanel)
+                  boolean hasPromotion, VehicleMovementGUI vMGui)
     {
-        Random random = new Random();
         this.dateAndTime = dateAndTime;
         this.user = user;
         this.vehicle = vehicle;
@@ -29,11 +31,12 @@ public class Rental extends Thread{
         this.endLocation = endLocation;
         this.duration = duration;
         this.hasPromotion = hasPromotion;
-        this.gridPanel = gridPanel;
+        this.vMGui = vMGui;
         numOfRentals++;
         if(numOfRentals % 10 == 0) {
             this.hasDiscount = true;
         }
+        this.wasInTheWiderPart = false;
     }
 
     public LocalDateTime getDateAndTime() {
@@ -100,33 +103,42 @@ public class Rental extends Thread{
         this.hasPromotion = hasPromotion;
     }
 
+    private boolean isLocationInWider(int x, int y)
+    {
+        return x < 5 || x > 14 || y < 5 || y > 14;
+    }
     @Override
     public void run() {
-        int startX = startLocation.getX();
-        int startY = startLocation.getY();
-        int endX = endLocation.getX();
-        int endY = endLocation.getY();
-
-        // Calculate steps
-        int steps = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
+        int steps = Math.abs(endLocation.getX() - startLocation.getX())+ Math.abs(endLocation.getY() - startLocation.getY());
         int stepDuration = duration / steps;
-
-        //TODO provjera da li je vozilo bilo vani, setuj true
+        for (int x = startLocation.getX(); x != endLocation.getX(); x += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX())) {
+            //azuriraj izgled mape
+            if(isLocationInWider(x,startLocation.getY()))
+            {
+                wasInTheWiderPart = true;
+            }
+            System.out.println("Vozilo ID" + vehicle.getID()+ " je na polju (" + x + ", " + startLocation.getY() + ")");
+            vMGui.updateGrid(x, startLocation.getY(),vehicle);
+            //gridPanel.addVehicle(x,startLocation.getY(),vehicle);
+        }
+        for (int y = startLocation.getY(); y != endLocation.getY(); y += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY())) {
+            //azuriraj izgled mape
+            if(isLocationInWider(y,endLocation.getX()))
+            {
+                wasInTheWiderPart = true;
+            }
+            System.out.println("Vozilo ID" + vehicle.getID()+ " je na polju (" + endLocation.getX() + ", " + y + ")");
+            vMGui.updateGrid(endLocation.getX(), y,vehicle);
+            //gridPanel.addVehicle(endLocation.getX(),y,vehicle);
+        }
+        System.out.println("Vozilo je stiglo na cilj (" + endLocation.getX() + ", " + endLocation.getY() + ")");
+        gridPanel.addVehicle(endLocation.getX(),endLocation.getY(),vehicle);
         //TODO kako se vozilo pomijera provjeravaj ima li kvar i da li je baterija prazna i prazni bateriju vremenom
-        // Simulate movement
-        for (int i = 0; i <= steps; i++) {//TODO ne ide pravolinijski
-            int currentX = startX + i * (endX - startX) / steps;
-            int currentY = startY + i * (endY - startY) / steps;
-            gridPanel.addVehicle(currentX, currentY, vehicle);
             try {
                 Thread.sleep(stepDuration * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (i < steps) {
-                gridPanel.removeVehicle(currentX, currentY, vehicle);
-            }
-        }
     }
     @Override
     public boolean equals(Object obj)

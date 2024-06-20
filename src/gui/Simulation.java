@@ -28,19 +28,21 @@ public class Simulation {
             System.out.println(entry.getValue());
         }
         System.out.println(vehicles.size());
-        DataLoader.loadRentals(gridPanel);
+        //DataLoader.loadRentals(gridPanel);
         rentals.forEach(r-> System.out.println(r));
         System.out.println(rentals.size());
     }
 
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        VehicleMovementGUI gui = new VehicleMovementGUI();
+        DataLoader.loadVehicles();
+        for (Map.Entry<String, Vehicle> entry : vehicles.entrySet()) {
+            System.out.println(entry.getValue());
+        }
+        System.out.println(vehicles.size());
+        DataLoader.loadRentals(gui);
+        SwingUtilities.invokeLater(VehicleMovementGUI::new);
     }
 }
 
