@@ -18,7 +18,6 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class DataLoader {
-    //TODO mozda vidjeti bolji nacin sa manje dupliranja koda
     public static void loadVehicles()
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy.");
@@ -128,7 +127,6 @@ public class DataLoader {
 
                     }
                 }catch(Exception ex)
-                //TODO kako rijesiti hvatanje svih ostalih izuzetaka npr pogresan datum
                 {
                     ex.printStackTrace();
                 }
@@ -137,24 +135,8 @@ public class DataLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // prebaciti u posebnu metodu
-        //TODO Sortiranje iznajmljivanja po datumu i vremenu
-        //treba napraviti blokove iznajmljivanja
         Collections.sort(Simulation.rentals, Comparator.comparing(Rental::getDateAndTime));
-        Simulation.rentals.forEach(r-> System.out.println(r));
-        System.out.println(Simulation.rentals.size());
-        // Pokretanje svake simulacije u zasebnoj niti
-        for (Rental rental : Simulation.rentals) {
-            rental.start();
-
-            try {
-                rental.join(); // Čekanje da se trenutna simulacija završi pre početka sledeće
-                Thread.sleep(5000); // Pauza od 5 sekundi između simulacija
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        //TODO blokovi
     }
 
     private static String[] splitCSVLine(String line) {

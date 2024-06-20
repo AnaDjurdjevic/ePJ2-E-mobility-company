@@ -7,13 +7,13 @@ import java.util.Properties;
 
 public class Parameters {
     private static Parameters instance;
-    private static double carUnitPrice;
-    private static double bikeUnitPrice;
-    private static double scooterUnitPrice;
-    private static double distanceNarrow;
-    private static double distanceWide;
-    private static double discount;
-    private static double discountProm;
+    private double carUnitPrice;
+    private double bikeUnitPrice;
+    private double scooterUnitPrice;
+    private double distanceNarrow;
+    private double distanceWide;
+    private double discount;
+    private double discountProm;
 
     private Parameters()
     {

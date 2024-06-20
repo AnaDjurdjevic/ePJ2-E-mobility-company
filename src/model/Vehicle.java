@@ -1,21 +1,25 @@
 package model;
 
+import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 public abstract class Vehicle {
     protected String ID;
     protected String manufacturer;
     protected String model;
     protected double purchasePrice;
-    protected double currentBatteryLevel;
+    protected int currentBatteryLevel;
     protected boolean morePassengers;
     protected boolean malfunctioned = false;//ima li potrebe? Moze samo da provjeri da li mu je instanciran objekat Malfunction,
     //ili je laksa provjera putem boolean atributa
     protected Malfunction malfunction;
+    protected Color color;
 
     public Vehicle(String ID, String manufacturer, String model,
                    double purchasePrice, boolean morePassengers,Malfunction malfunction)
     {
+        Random random = new Random();
         this.ID = ID;
         this.manufacturer = manufacturer;
         this.model = model;
@@ -23,6 +27,7 @@ public abstract class Vehicle {
         this.morePassengers = morePassengers;
         this.malfunction = null;
         this.currentBatteryLevel = 100;
+        color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
     public String getID() {
@@ -33,11 +38,11 @@ public abstract class Vehicle {
         this.ID = ID;
     }
 
-    public double getCurrentBatteryLevel() {
+    public int getCurrentBatteryLevel() {
         return currentBatteryLevel;
     }
 
-    public void setCurrentBatteryLevel(double currentBatteryLevel) {
+    public void setCurrentBatteryLevel(int currentBatteryLevel) {
         this.currentBatteryLevel = currentBatteryLevel;
     }
 
@@ -48,7 +53,16 @@ public abstract class Vehicle {
     public void setMalfunction(Malfunction malfunction) {
         this.malfunction = malfunction;
     }
-    public void chargeBattery(double amount)
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void chargeBattery(int amount)
     {
         this.currentBatteryLevel += amount;
         if (this.currentBatteryLevel > 100) {
@@ -56,12 +70,13 @@ public abstract class Vehicle {
         }
     }
 
-    public void dischargeBattery(double amount)
+    public void dischargeBattery(int amount)
     {
         this.currentBatteryLevel -= amount;
         if(this.currentBatteryLevel < 0)
         {
             this.currentBatteryLevel = 0;
+            this.malfunction = new Malfunction("Empty battery", LocalDateTime.now());
         }
     }
 

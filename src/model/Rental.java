@@ -1,10 +1,8 @@
 package model;
 
-import gui.GridPanel;
 import gui.VehicleMovementGUI;
 
 import java.time.LocalDateTime;
-import java.util.Random;
 
 public class Rental extends Thread{
     private static int numOfRentals;
@@ -17,7 +15,6 @@ public class Rental extends Thread{
     private boolean hasPromotion = false;
     private boolean hasDiscount = false;
     protected boolean wasInTheWiderPart;
-    private GridPanel gridPanel;
     private VehicleMovementGUI vMGui;
 
     public Rental(LocalDateTime dateAndTime, User user, Vehicle vehicle,
@@ -111,52 +108,47 @@ public class Rental extends Thread{
     public void run() {
         int steps = Math.abs(endLocation.getX() - startLocation.getX())+ Math.abs(endLocation.getY() - startLocation.getY());
         int stepDuration = duration / steps;
-        /*for (int x = startLocation.getX(); x != endLocation.getX(); x += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX())) {
-            //azuriraj izgled mape
-            if(isLocationInWider(x,startLocation.getY()))
-            {
-                wasInTheWiderPart = true;
-            }
-            System.out.println("Vozilo ID" + vehicle.getID()+ " je na polju (" + x + ", " + startLocation.getY() + ")");
-            vMGui.updateGrid(x, startLocation.getY(),vehicle);
-            //gridPanel.addVehicle(x,startLocation.getY(),vehicle);
-        }
-        for (int y = startLocation.getY(); y != endLocation.getY(); y += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY())) {
-            //azuriraj izgled mape
-            if(isLocationInWider(y,endLocation.getX()))
-            {
-                wasInTheWiderPart = true;
-            }
-            System.out.println("Vozilo ID" + vehicle.getID()+ " je na polju (" + endLocation.getX() + ", " + y + ")");
-            vMGui.updateGrid(endLocation.getX(), y,vehicle);
-            //gridPanel.addVehicle(endLocation.getX(),y,vehicle);
-        }
-        System.out.println("Vozilo je stiglo na cilj (" + endLocation.getX() + ", " + endLocation.getY() + ")");
-        gridPanel.addVehicle(endLocation.getX(),endLocation.getY(),vehicle);*/
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
-
-        for (int x = currentX; x != endLocation.getX(); x += (endLocation.getX() - currentX) / Math.abs(endLocation.getX() - currentX)) {
-            // Update grid and move to next cell
-            vMGui.updateGrid(currentX, currentY, x, currentY, vehicle);
-            currentX = x;
+        vMGui.updateGrid(-1, -1, currentX, currentY, vehicle);
+        while (currentX != endLocation.getX()) {
+            int prevX = currentX;
+            currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
             vehicle.dischargeBattery(stepDuration);
-        }
-        for (int y = currentY; y != endLocation.getY(); y += (endLocation.getY() - currentY) / Math.abs(endLocation.getY() - currentY)) {
-            // Update grid and move to next cell
-            vMGui.updateGrid(currentX, currentY, currentX, y, vehicle);
-            currentY = y;
-            vehicle.dischargeBattery(stepDuration);
-        }
-        // Final update for end location
-        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
-
-        //TODO kako se vozilo pomijera provjeravaj ima li kvar i da li je baterija prazna i prazni bateriju vremenom
+            if(isLocationInWider(prevX,currentX))
+            {
+                wasInTheWiderPart = true;
+            }
+            vMGui.updateGrid(prevX, currentY, currentX, currentY, vehicle);
             try {
-                Thread.sleep(stepDuration * 1000);
+                sleep(stepDuration * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        while (currentY != endLocation.getY()) {
+            int prevY = currentY;
+            currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
+            vehicle.dischargeBattery(stepDuration);
+            if(isLocationInWider(currentX,prevY))
+            {
+                wasInTheWiderPart = true;
+            }
+            vMGui.updateGrid(currentX, prevY, currentX, currentY, vehicle);
+            try {
+                sleep(stepDuration * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            sleep(stepDuration * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
+        //TODO kako se vozilo pomijera provjeravaj ima li kvar i da li je baterija prazna
+        //TODO omoguciti preklapanje vise vozila
     }
     @Override
     public boolean equals(Object obj)

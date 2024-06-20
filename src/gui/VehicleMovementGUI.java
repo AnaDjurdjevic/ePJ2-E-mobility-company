@@ -23,7 +23,6 @@ public class VehicleMovementGUI extends JFrame {
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];
 
         initializeGrid();
-        simulateVehicleMovement();
 
         setVisible(true);
     }
@@ -33,13 +32,16 @@ public class VehicleMovementGUI extends JFrame {
             for (int j = 0; j < GRID_SIZE; j++) {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                if (i >= 5 && i <= 14 && j >= 5 && j <= 14) {
+                    panel.setBackground(Color.CYAN);
+                }
                 gridPanels[i][j] = panel;
                 add(panel);
             }
         }
     }
-
-    private void simulateVehicleMovement() {
+    public static void simulateMovement()
+    {
         for (Rental rental : Simulation.rentals) {
             rental.start();
 
@@ -52,29 +54,25 @@ public class VehicleMovementGUI extends JFrame {
         }
     }
 
-
-
     public void updateGrid(int prevX,int prevY,int x, int y, Vehicle vehicle) {
         Random rand = new Random();
         if (prevX != -1 && prevY != -1) {
             JPanel prevPanel = gridPanels[prevX][prevY];
-            prevPanel.setBackground(null);
+            if (prevX >= 5 && prevX <= 14 && prevY >= 5 && prevY <= 14) {
+                prevPanel.setBackground(Color.CYAN); // Restore the original color for the specified region
+            } else {
+                prevPanel.setBackground(null); // Restore the default color
+            }
             prevPanel.removeAll();
             prevPanel.revalidate();
             prevPanel.repaint();
         }
         JPanel panel = gridPanels[x][y];
-        panel.setBackground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+        panel.setBackground(vehicle.getColor());
         panel.removeAll();
-        JLabel label = new JLabel("<html>ID: " + vehicle.getID() + "<br>Battery: " + vehicle.getCurrentBatteryLevel() + "</html>");
+        JLabel label = new JLabel(vehicle.getID() + " [" + vehicle.getCurrentBatteryLevel() + "]");
         panel.add(label);
         panel.revalidate();
         panel.repaint();
-
-        try {
-            Thread.sleep(500); // Simulate delay for movement
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
