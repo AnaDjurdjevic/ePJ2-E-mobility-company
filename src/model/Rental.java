@@ -111,7 +111,7 @@ public class Rental extends Thread{
     public void run() {
         int steps = Math.abs(endLocation.getX() - startLocation.getX())+ Math.abs(endLocation.getY() - startLocation.getY());
         int stepDuration = duration / steps;
-        for (int x = startLocation.getX(); x != endLocation.getX(); x += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX())) {
+        /*for (int x = startLocation.getX(); x != endLocation.getX(); x += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX())) {
             //azuriraj izgled mape
             if(isLocationInWider(x,startLocation.getY()))
             {
@@ -132,7 +132,25 @@ public class Rental extends Thread{
             //gridPanel.addVehicle(endLocation.getX(),y,vehicle);
         }
         System.out.println("Vozilo je stiglo na cilj (" + endLocation.getX() + ", " + endLocation.getY() + ")");
-        gridPanel.addVehicle(endLocation.getX(),endLocation.getY(),vehicle);
+        gridPanel.addVehicle(endLocation.getX(),endLocation.getY(),vehicle);*/
+        int currentX = startLocation.getX();
+        int currentY = startLocation.getY();
+
+        for (int x = currentX; x != endLocation.getX(); x += (endLocation.getX() - currentX) / Math.abs(endLocation.getX() - currentX)) {
+            // Update grid and move to next cell
+            vMGui.updateGrid(currentX, currentY, x, currentY, vehicle);
+            currentX = x;
+            vehicle.dischargeBattery(stepDuration);
+        }
+        for (int y = currentY; y != endLocation.getY(); y += (endLocation.getY() - currentY) / Math.abs(endLocation.getY() - currentY)) {
+            // Update grid and move to next cell
+            vMGui.updateGrid(currentX, currentY, currentX, y, vehicle);
+            currentY = y;
+            vehicle.dischargeBattery(stepDuration);
+        }
+        // Final update for end location
+        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
+
         //TODO kako se vozilo pomijera provjeravaj ima li kvar i da li je baterija prazna i prazni bateriju vremenom
             try {
                 Thread.sleep(stepDuration * 1000);

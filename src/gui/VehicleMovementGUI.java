@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class VehicleMovementGUI extends JFrame {
 
@@ -53,11 +54,18 @@ public class VehicleMovementGUI extends JFrame {
 
 
 
-    public void updateGrid(int x, int y, Vehicle vehicle) {
+    public void updateGrid(int prevX,int prevY,int x, int y, Vehicle vehicle) {
+        Random rand = new Random();
+        if (prevX != -1 && prevY != -1) {
+            JPanel prevPanel = gridPanels[prevX][prevY];
+            prevPanel.setBackground(null);
+            prevPanel.removeAll();
+            prevPanel.revalidate();
+            prevPanel.repaint();
+        }
         JPanel panel = gridPanels[x][y];
-        panel.setBackground(Color.YELLOW);
+        panel.setBackground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         panel.removeAll();
-
         JLabel label = new JLabel("<html>ID: " + vehicle.getID() + "<br>Battery: " + vehicle.getCurrentBatteryLevel() + "</html>");
         panel.add(label);
         panel.revalidate();
