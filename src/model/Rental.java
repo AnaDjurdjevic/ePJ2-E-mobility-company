@@ -103,7 +103,7 @@ public class Rental extends Thread{
 
     private boolean isLocationInWider(int x, int y)
     {
-        return x < 5 || x > 14 || y < 5 || y > 14;
+        return !(x >= 5 && x <= 14 && y >= 5 && y <= 14);
     }
     @Override
     public void run() {
