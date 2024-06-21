@@ -15,7 +15,7 @@ public class Simulation {
     public static final String appConfigPath = "resources" + File.separator +"app.properties";
     public static Map<String , Vehicle > vehicles = new HashMap<>();
     public static List<Rental> rentals = new ArrayList<>();
-    public static Map<LocalDateTime,List<Rental>> blockOfRentals = new HashMap<>();
+    public static Map<LocalDateTime,List<Rental>> blockOfRentals = new TreeMap<>();
 
     private static void simulateMovement(VehicleMovementGUI vMGui)
     {

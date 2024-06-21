@@ -81,8 +81,7 @@ public class DataLoader {
         Properties appProps = new Properties();
         try {
             appProps.load(new FileInputStream(Simulation.appConfigPath));
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         Path vehiclesPath = new File(appProps.getProperty("PATH_RENTALS")).toPath();
@@ -95,14 +94,12 @@ public class DataLoader {
                         String[] line = splitCSVLine(p);
                         for (int i = 0; i < line.length; i++) {
                             line[i] = line[i].trim();
-                            if(line[i].equals(""))
-                            {
+                            if (line[i].equals("")) {
                                 throw new IncorrectInputFormatException("Missing inputs in line " + p);
                             }
                         }
-                        if(line.length != 8)
-                        {
-                            throw new IncorrectInputFormatException("Incorrect rental input line "+ p);
+                        if (line.length != 8) {
+                            throw new IncorrectInputFormatException("Incorrect rental input line " + p);
                         }
                         LocalDateTime datetime = LocalDateTime.parse(line[0], formatter);
                         User user = new User(line[1]);
@@ -118,17 +115,15 @@ public class DataLoader {
                         Location end = new Location(Integer.parseInt(endLocation.split(",")[0]), Integer.parseInt(endLocation.split(",")[1]));
                         Rental newRental = new Rental(datetime, user, Simulation.vehicles.get(line[2]), start, end, duration, hasPromotion, vMGui);
                         if (Simulation.rentals.contains(newRental)) {
-                            throw new DuplicateValueException("Duplicate rental date "+line[0]+" vehicle ID "+line[2]);
+                            throw new DuplicateValueException("Duplicate rental date " + line[0] + " vehicle ID " + line[2]);
                         }
-                        if(!checkLocations(start,end))
-                        {
+                        if (!checkLocations(start, end)) {
                             throw new IndexOutOfRangeException("Location/s " + start + " " + end + " out of range!");
                         }
                         Simulation.rentals.add(newRental);
 
                     }
-                }catch(Exception ex)
-                {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             });
@@ -137,13 +132,21 @@ public class DataLoader {
             e.printStackTrace();
         }
         Collections.sort(Simulation.rentals, Comparator.comparing(Rental::getDateAndTime));
+        System.out.println("ispis sortiranog\n");
+        Simulation.rentals.forEach(r -> System.out.println(r));
         for (Rental rental : Simulation.rentals) {
             LocalDateTime dateTime = rental.getDateAndTime();
             try {
                 Simulation.blockOfRentals.computeIfAbsent(dateTime, k -> new ArrayList<>()).add(rental);
-            }catch(ConcurrentModificationException ex)
-            {
+            } catch (ConcurrentModificationException ex) {
                 ex.printStackTrace();
+            }
+        }
+        System.out.println("ispis blokova\n");
+        for (Map.Entry<LocalDateTime, List<Rental>> entry : Simulation.blockOfRentals.entrySet()) {
+            List<Rental> rentalList = entry.getValue();
+            for (Rental rental : rentalList) {
+                System.out.println(rental);
             }
         }
     }

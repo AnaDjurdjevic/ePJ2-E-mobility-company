@@ -2,6 +2,7 @@ package model;
 
 import gui.VehicleMovementGUI;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class Rental extends Thread{
@@ -106,51 +107,57 @@ public class Rental extends Thread{
     }
     @Override
     public void run() {
-        System.out.println("Starting rental for vehicle ID: " + vehicle.getID() + " at " + dateAndTime);
-
         int steps = Math.abs(endLocation.getX() - startLocation.getX()) + Math.abs(endLocation.getY() - startLocation.getY()) + 1;
         int stepDuration = duration / steps;
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
 
-        vMGui.updateGrid(-1, -1, currentX, currentY, vehicle);
+        final int curX1 = currentX;
+        //ako vozilo ima kvar prikazi ga 3 sekunde na pocetnoj poziciji i neka nestane
+        if (vehicle.getMalfunction() != null) {
+            SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
+            sleepForDuration(3);
+            SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
+            return;
+        }
+        SwingUtilities.invokeLater(() ->vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
         sleepForDuration(stepDuration);
 
         currentX = moveHorizontally(currentX, currentY, stepDuration);
         moveVertically(currentX, currentY, stepDuration);
-
-        vMGui.updateGrid(currentX, currentY, endLocation.getX(), endLocation.getY(), vehicle);
-        System.out.println("Finished rental for vehicle ID: " + vehicle.getID() + " at " + dateAndTime);
+        final int curX2 = currentX;
+        SwingUtilities.invokeLater(() ->vMGui.updateGrid(curX2, currentY, endLocation.getX(), endLocation.getY(), vehicle));
 
         sleepForDuration(stepDuration);
-        //TODO kako se vozilo pomijera provjeravaj ima li kvar
         //TODO omoguciti preklapanje vise vozila
     }
 
-    private int moveHorizontally(int currentX, int currentY, int stepDuration) {
+    private synchronized int moveHorizontally(int currentX, int currentY, int stepDuration) {
         while (currentX != endLocation.getX()) {
             int prevX = currentX;
             currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
             vehicle.dischargeBattery(stepDuration);
             checkWiderPart(currentX, currentY);
-            vMGui.updateGrid(prevX, currentY, currentX, currentY, vehicle);
+            final int curX = currentX;
+            SwingUtilities.invokeLater(() ->vMGui.updateGrid(prevX, currentY, curX, currentY, vehicle));
             sleepForDuration(stepDuration);
         }
         return currentX;
     }
 
-    private void moveVertically(int currentX, int currentY, int stepDuration) {
+    private synchronized void moveVertically(int currentX, int currentY, int stepDuration) {
         while (currentY != endLocation.getY()) {
             int prevY = currentY;
             currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
             vehicle.dischargeBattery(stepDuration);
             checkWiderPart(currentX, currentY);
-            vMGui.updateGrid(currentX, prevY, currentX, currentY, vehicle);
+            final int curY = currentY;
+            SwingUtilities.invokeLater(() ->vMGui.updateGrid(currentX, prevY, currentX, curY, vehicle));
             sleepForDuration(stepDuration);
         }
     }
 
-    private void checkWiderPart(int x, int y) {
+    private synchronized void checkWiderPart(int x, int y) {
         if (isLocationInWider(x, y)) {
             wasInTheWiderPart = true;
         }

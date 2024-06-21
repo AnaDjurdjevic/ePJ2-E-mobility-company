@@ -6,15 +6,14 @@ import util.DataLoader;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public class VehicleMovementGUI extends JFrame {
 
     private static final int GRID_SIZE = 20;
     private JPanel[][] gridPanels;
+    private Map<Point, Set<Vehicle>> vehiclePositions;
 
     public VehicleMovementGUI() {
         setTitle("Vehicle Movement Simulation");
@@ -22,6 +21,7 @@ public class VehicleMovementGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];
+        vehiclePositions = new HashMap<>();
 
         initializeGrid();
 
@@ -33,6 +33,7 @@ public class VehicleMovementGUI extends JFrame {
             for (int j = 0; j < GRID_SIZE; j++) {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 if (i >= 5 && i <= 14 && j >= 5 && j <= 14) {
                     panel.setBackground(Color.CYAN);
                 }
@@ -58,7 +59,6 @@ public class VehicleMovementGUI extends JFrame {
     }
 
     public void updateGrid(int prevX,int prevY,int x, int y, Vehicle vehicle) {
-        Random rand = new Random();
         if (prevX != -1 && prevY != -1) {
             JPanel prevPanel = gridPanels[prevX][prevY];
             if (prevX >= 5 && prevX <= 14 && prevY >= 5 && prevY <= 14) {
@@ -77,7 +77,20 @@ public class VehicleMovementGUI extends JFrame {
         panel.add(label);
         panel.revalidate();
         panel.repaint();
-        System.out.println("Vehicle ID: " + vehicle.getID() + " updated on grid at (" + x + ", " + y + ")");
+        //System.out.println("Vehicle ID: " + vehicle.getID() + " updated on grid at (" + x + ", " + y + ")");
 
+    }
+    public void removeVehicleFromGrid(int x, int y, Vehicle vehicle) {
+        SwingUtilities.invokeLater(() -> {
+            JPanel panel = gridPanels[x][y];
+            if (x >= 5 && x <= 14 && y >= 5 && y <= 14) {
+                panel.setBackground(Color.CYAN); // Restore the original color for the specified region
+            } else {
+                panel.setBackground(null); // Restore the default color
+            }
+            panel.removeAll();
+            panel.revalidate();
+            panel.repaint();
+        });
     }
 }

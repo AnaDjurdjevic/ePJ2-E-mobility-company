@@ -76,7 +76,7 @@ public abstract class Vehicle {
         if(this.currentBatteryLevel < 0)
         {
             this.currentBatteryLevel = 0;
-            this.malfunction = new Malfunction("Empty battery", LocalDateTime.now());
+            //this.malfunction = new Malfunction("Empty battery", LocalDateTime.now());TODO ne treba da se biljezi kao kvar
         }
     }
 
