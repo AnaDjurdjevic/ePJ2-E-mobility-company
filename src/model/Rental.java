@@ -120,6 +120,13 @@ public class Rental extends Thread{
             SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
             return;
         }
+        if (vehicle.emptyBattery == true) {
+            SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
+            sleepForDuration(3);
+            SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
+            vehicle.chargeBattery(100);
+            return;
+        }
         SwingUtilities.invokeLater(() ->vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
         sleepForDuration(stepDuration);
 

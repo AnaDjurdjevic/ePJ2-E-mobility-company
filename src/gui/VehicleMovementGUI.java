@@ -16,8 +16,8 @@ public class VehicleMovementGUI extends JFrame {
     private Map<Point, Set<Vehicle>> vehiclePositions;
 
     public VehicleMovementGUI() {
-        setTitle("Vehicle Movement Simulation");
-        setSize(1000, 780);
+        setTitle("ePJ2");
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];

@@ -11,10 +11,9 @@ public abstract class Vehicle {
     protected double purchasePrice;
     protected int currentBatteryLevel;
     protected boolean morePassengers;
-    protected boolean malfunctioned = false;//ima li potrebe? Moze samo da provjeri da li mu je instanciran objekat Malfunction,
-    //ili je laksa provjera putem boolean atributa
     protected Malfunction malfunction;
     protected Color color;
+    protected boolean emptyBattery = false;
 
     public Vehicle(String ID, String manufacturer, String model,
                    double purchasePrice, boolean morePassengers,Malfunction malfunction)
@@ -62,12 +61,21 @@ public abstract class Vehicle {
         this.color = color;
     }
 
+    public boolean isEmptyBattery() {
+        return emptyBattery;
+    }
+
+    public void setEmptyBattery(boolean emptyBattery) {
+        this.emptyBattery = emptyBattery;
+    }
+
     public void chargeBattery(int amount)
     {
         this.currentBatteryLevel += amount;
         if (this.currentBatteryLevel > 100) {
             this.currentBatteryLevel = 100;
         }
+        emptyBattery = false;
     }
 
     public void dischargeBattery(int amount)
@@ -76,22 +84,20 @@ public abstract class Vehicle {
         if(this.currentBatteryLevel < 0)
         {
             this.currentBatteryLevel = 0;
-            //this.malfunction = new Malfunction("Empty battery", LocalDateTime.now());TODO ne treba da se biljezi kao kvar
+            emptyBattery = true;
         }
     }
 
 
     public void malfunctionHappened(String reason, LocalDateTime dateAndTime)
     {
-        this.malfunctioned = true;
         this.malfunction = new Malfunction(reason, dateAndTime);
 
     }
 
     public void repair()
     {
-        this.malfunctioned = false;
-        this.malfunction = null;//TODO mozda neka mapa kvarova da ipak postoji?
+        this.malfunction = null;
     }
 
     @Override
