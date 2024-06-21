@@ -1,4 +1,4 @@
-package exceptions;
+package ana.epj2.exceptions;
 
 public class IncorrectInputFormatException extends Exception{
     public IncorrectInputFormatException()

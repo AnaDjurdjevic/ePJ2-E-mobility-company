@@ -1,4 +1,4 @@
-package model;
+package ana.epj2.model;
 
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -122,7 +122,7 @@ public abstract class Vehicle {
     {
         return "[ID=" + ID +
                 ", manufacturer=" + manufacturer +
-                ", model=" + model +
+                ", ana.epj2.model=" + model +
                 ", purchase price=" + purchasePrice +
                 ", malfunction=" + malfunction;
     }

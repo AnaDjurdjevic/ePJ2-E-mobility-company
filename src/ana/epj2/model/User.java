@@ -1,4 +1,4 @@
-package model;
+package ana.epj2.model;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package exceptions;
+package ana.epj2.exceptions;
 
 public class DuplicateValueException extends Exception{
     public DuplicateValueException() {

@@ -1,6 +1,6 @@
-package model;
+package ana.epj2.model;
 
-import gui.VehicleMovementGUI;
+import ana.epj2.gui.VehicleMovementGUI;
 
 import javax.swing.*;
 import java.time.LocalDateTime;

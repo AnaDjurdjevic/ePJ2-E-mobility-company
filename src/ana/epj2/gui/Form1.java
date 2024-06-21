@@ -1,4 +1,4 @@
-package gui;
+package ana.epj2.gui;
 
 import javax.swing.*;
 

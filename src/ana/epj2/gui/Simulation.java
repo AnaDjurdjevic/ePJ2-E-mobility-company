@@ -1,9 +1,8 @@
-package gui;
+package ana.epj2.gui;
 
-import model.*;
-import util.DataLoader;
+import ana.epj2.model.*;
+import ana.epj2.util.DataLoader;
 
-import javax.swing.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.*;

@@ -1,6 +1,6 @@
-package util;
+package ana.epj2.util;
 
-import gui.Simulation;
+import ana.epj2.gui.Simulation;
 
 import java.io.FileInputStream;
 import java.util.Properties;

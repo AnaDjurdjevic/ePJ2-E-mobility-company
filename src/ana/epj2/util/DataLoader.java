@@ -1,11 +1,11 @@
-package util;
+package ana.epj2.util;
 
-import exceptions.DuplicateValueException;
-import exceptions.IncorrectInputFormatException;
-import exceptions.IndexOutOfRangeException;
-import exceptions.NonExistentValueException;
-import gui.*;
-import model.*;
+import ana.epj2.exceptions.IncorrectInputFormatException;
+import ana.epj2.exceptions.NonExistentValueException;
+import ana.epj2.exceptions.DuplicateValueException;
+import ana.epj2.exceptions.IndexOutOfRangeException;
+import ana.epj2.gui.*;
+import ana.epj2.model.*;
 
 import java.io.File;
 import java.io.FileInputStream;

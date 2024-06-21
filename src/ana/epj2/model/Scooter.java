@@ -1,4 +1,4 @@
-package model;
+package ana.epj2.model;
 
 public class Scooter extends Vehicle{
     private double maxSpeed;

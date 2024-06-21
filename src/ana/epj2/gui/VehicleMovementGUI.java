@@ -1,13 +1,9 @@
-package gui;
-import model.Rental;
-import model.Vehicle;
-import util.DataLoader;
+package ana.epj2.gui;
+import ana.epj2.model.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.List;
 
 public class VehicleMovementGUI extends JFrame {
 

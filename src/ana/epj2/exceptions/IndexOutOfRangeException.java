@@ -1,4 +1,4 @@
-package exceptions;
+package ana.epj2.exceptions;
 
 public class IndexOutOfRangeException extends Exception{
     public IndexOutOfRangeException()

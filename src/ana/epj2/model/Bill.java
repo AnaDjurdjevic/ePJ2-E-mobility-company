@@ -1,6 +1,6 @@
-package model;
+package ana.epj2.model;
 
-import util.Parameters;
+import ana.epj2.util.Parameters;
 
 public class Bill {
     private Rental rental;
