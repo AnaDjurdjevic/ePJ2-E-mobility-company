@@ -17,7 +17,7 @@ public class VehicleMovementGUI extends JFrame {
 
     public VehicleMovementGUI() {
         setTitle("Vehicle Movement Simulation");
-        setSize(800, 800);
+        setSize(1000, 780);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];
@@ -43,13 +43,13 @@ public class VehicleMovementGUI extends JFrame {
         }
     }
 
-    public void resetGrid() {
+    public synchronized void resetGrid() {
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
                 if (i >= 5 && i <= 14 && j >= 5 && j <= 14) {
-                    gridPanels[i][j].setBackground(Color.CYAN); // Restore the original color for the specified region
+                    gridPanels[i][j].setBackground(Color.CYAN);
                 } else {
-                    gridPanels[i][j].setBackground(null); // Restore the default color
+                    gridPanels[i][j].setBackground(null);
                 }
                 gridPanels[i][j].removeAll();
                 gridPanels[i][j].revalidate();
@@ -58,39 +58,48 @@ public class VehicleMovementGUI extends JFrame {
         }
     }
 
-    public void updateGrid(int prevX,int prevY,int x, int y, Vehicle vehicle) {
-        if (prevX != -1 && prevY != -1) {
-            JPanel prevPanel = gridPanels[prevX][prevY];
-            if (prevX >= 5 && prevX <= 14 && prevY >= 5 && prevY <= 14) {
-                prevPanel.setBackground(Color.CYAN); // Restore the original color for the specified region
-            } else {
-                prevPanel.setBackground(null); // Restore the default color
+    public synchronized void updateGrid(int prevX, int prevY, int x, int y, Vehicle vehicle) {
+        SwingUtilities.invokeLater(() -> {
+            if (prevX != -1 && prevY != -1) {
+                removeVehicleFromGrid(prevX, prevY, vehicle);
             }
-            prevPanel.removeAll();
-            prevPanel.revalidate();
-            prevPanel.repaint();
-        }
+            addVehicleToGrid(x, y, vehicle);
+        });
+    }
+    private synchronized void addVehicleToGrid(int x, int y, Vehicle vehicle) {
+        Point point = new Point(x, y);
+        vehiclePositions.computeIfAbsent(point, k -> new HashSet<>()).add(vehicle);
         JPanel panel = gridPanels[x][y];
-        panel.setBackground(vehicle.getColor());
         panel.removeAll();
-        JLabel label = new JLabel(vehicle.getID() + " [" + vehicle.getCurrentBatteryLevel() + "]");
-        panel.add(label);
+        for (Vehicle v : vehiclePositions.get(point)) {
+            JLabel label = new JLabel(  v.getID() + " [" + v.getCurrentBatteryLevel() + "]");
+            label.setOpaque(true);
+            label.setBackground(vehicle.getColor());
+            panel.add(label);
+        }
         panel.revalidate();
         panel.repaint();
-        //System.out.println("Vehicle ID: " + vehicle.getID() + " updated on grid at (" + x + ", " + y + ")");
-
     }
-    public void removeVehicleFromGrid(int x, int y, Vehicle vehicle) {
-        SwingUtilities.invokeLater(() -> {
-            JPanel panel = gridPanels[x][y];
-            if (x >= 5 && x <= 14 && y >= 5 && y <= 14) {
-                panel.setBackground(Color.CYAN); // Restore the original color for the specified region
-            } else {
-                panel.setBackground(null); // Restore the default color
+    public synchronized void removeVehicleFromGrid(int x, int y, Vehicle vehicle) {
+        Point point = new Point(x, y);
+        Set<Vehicle> vehiclesAtPoint = vehiclePositions.get(point);
+        if (vehiclesAtPoint != null) {
+            vehiclesAtPoint.remove(vehicle);
+            if (vehiclesAtPoint.isEmpty()) {
+                vehiclePositions.remove(point);
             }
-            panel.removeAll();
-            panel.revalidate();
-            panel.repaint();
-        });
+        }
+        JPanel panel = gridPanels[x][y];
+        panel.removeAll();
+        if (vehiclesAtPoint != null) {
+            for (Vehicle v : vehiclesAtPoint) {
+                JLabel label = new JLabel(v.getID() + " [" + v.getCurrentBatteryLevel() + "]");
+                label.setOpaque(true);
+                label.setBackground(vehicle.getColor());
+                panel.add(label);
+            }
+        }
+        panel.revalidate();
+        panel.repaint();
     }
 }

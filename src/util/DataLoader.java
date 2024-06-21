@@ -3,6 +3,7 @@ package util;
 import exceptions.DuplicateValueException;
 import exceptions.IncorrectInputFormatException;
 import exceptions.IndexOutOfRangeException;
+import exceptions.NonExistentValueException;
 import gui.*;
 import model.*;
 
@@ -113,6 +114,10 @@ public class DataLoader {
                         boolean hasPromotion = line[7].equalsIgnoreCase("da");
                         Location start = new Location(Integer.parseInt(startLocation.split(",")[0]), Integer.parseInt(startLocation.split(",")[1]));
                         Location end = new Location(Integer.parseInt(endLocation.split(",")[0]), Integer.parseInt(endLocation.split(",")[1]));
+                        if(!Simulation.vehicles.containsKey(line[2]))
+                        {
+                            throw new NonExistentValueException("Vehicle ID " + line[2] + " does not exist!");
+                        }
                         Rental newRental = new Rental(datetime, user, Simulation.vehicles.get(line[2]), start, end, duration, hasPromotion, vMGui);
                         if (Simulation.rentals.contains(newRental)) {
                             throw new DuplicateValueException("Duplicate rental date " + line[0] + " vehicle ID " + line[2]);
@@ -132,8 +137,6 @@ public class DataLoader {
             e.printStackTrace();
         }
         Collections.sort(Simulation.rentals, Comparator.comparing(Rental::getDateAndTime));
-        System.out.println("ispis sortiranog\n");
-        Simulation.rentals.forEach(r -> System.out.println(r));
         for (Rental rental : Simulation.rentals) {
             LocalDateTime dateTime = rental.getDateAndTime();
             try {
@@ -142,7 +145,6 @@ public class DataLoader {
                 ex.printStackTrace();
             }
         }
-        System.out.println("ispis blokova\n");
         for (Map.Entry<LocalDateTime, List<Rental>> entry : Simulation.blockOfRentals.entrySet()) {
             List<Rental> rentalList = entry.getValue();
             for (Rental rental : rentalList) {

@@ -129,7 +129,6 @@ public class Rental extends Thread{
         SwingUtilities.invokeLater(() ->vMGui.updateGrid(curX2, currentY, endLocation.getX(), endLocation.getY(), vehicle));
 
         sleepForDuration(stepDuration);
-        //TODO omoguciti preklapanje vise vozila
     }
 
     private synchronized int moveHorizontally(int currentX, int currentY, int stepDuration) {
