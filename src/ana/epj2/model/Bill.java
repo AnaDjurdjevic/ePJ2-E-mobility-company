@@ -14,8 +14,6 @@ public class Bill {
     public Bill(Rental rental)
     {
         this.rental = rental;
-
-
         amount = 0.0;
         totalPayment = 0.0;
         distance = 0.0;

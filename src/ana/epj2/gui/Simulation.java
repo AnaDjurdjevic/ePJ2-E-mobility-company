@@ -16,7 +16,7 @@ public class Simulation {
     public static List<Rental> rentals = new ArrayList<>();
     public static Map<LocalDateTime,List<Rental>> blockOfRentals = new TreeMap<>();
 
-    private static   void simulateMovement(VehicleMovementGUI vMGui)
+    private static synchronized  void simulateMovement(VehicleMovementGUI vMGui)
     {
         for (Map.Entry<LocalDateTime, List<Rental>> entry : Simulation.blockOfRentals.entrySet()) {
             List<Rental> rentalList = entry.getValue();

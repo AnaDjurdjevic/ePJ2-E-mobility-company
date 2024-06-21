@@ -9,6 +9,7 @@ public class Bicycle extends Vehicle{
     {
         super(ID,manufacturer,model,purchasePrice,true, null);
         this.autonomy = autonomy;
+        this.repairCoefficient = 0.04;
     }
 
     @Override

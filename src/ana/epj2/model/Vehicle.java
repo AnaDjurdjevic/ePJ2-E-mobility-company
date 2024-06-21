@@ -14,6 +14,7 @@ public abstract class Vehicle {
     protected Malfunction malfunction;
     protected Color color;
     protected boolean emptyBattery = false;
+    protected double repairCoefficient;
 
     public Vehicle(String ID, String manufacturer, String model,
                    double purchasePrice, boolean morePassengers,Malfunction malfunction)

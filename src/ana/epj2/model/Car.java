@@ -12,6 +12,7 @@ public class Car extends Vehicle{
         super(ID,manufacturer,model,purchasePrice,true, null);
         this.purchaseDate = purchaseDate;
         this.description = description;
+        this.repairCoefficient = 0.07;
 
     }
 

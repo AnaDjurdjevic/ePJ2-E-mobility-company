@@ -8,6 +8,7 @@ public class Scooter extends Vehicle{
     {
         super(ID,manufacturer,model,purchasePrice,false, null);
         this.maxSpeed = maxSpeed;
+        this.repairCoefficient = 0.02;
     }
     @Override
     public String toString()
