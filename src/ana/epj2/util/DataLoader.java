@@ -24,7 +24,7 @@ public class DataLoader {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy.");
         Properties appProps = new Properties();
         try {
-            appProps.load(new FileInputStream(Simulation.appConfigPath));
+            appProps.load(new FileInputStream(Simulation.APP_CONFIG_PATH));
         }catch(Exception ex)
         {
             ex.printStackTrace();
@@ -81,7 +81,7 @@ public class DataLoader {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
         Properties appProps = new Properties();
         try {
-            appProps.load(new FileInputStream(Simulation.appConfigPath));
+            appProps.load(new FileInputStream(Simulation.APP_CONFIG_PATH));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -109,7 +109,7 @@ public class DataLoader {
                         String endLocation = line[4];
                         int duration = Integer.parseInt(line[5]);
                         if ("da".equals(line[6])) {
-                            Simulation.vehicles.get(vehicleId).setMalfunction(new Malfunction("malfunction" + random.nextInt(), LocalDateTime.now()));
+                            Simulation.vehicles.get(vehicleId).setMalfunction(new Malfunction("malfunction" + random.nextInt(100), datetime));
                         }
                         boolean hasPromotion = line[7].equalsIgnoreCase("da");
                         Location start = new Location(Integer.parseInt(startLocation.split(",")[0]), Integer.parseInt(startLocation.split(",")[1]));

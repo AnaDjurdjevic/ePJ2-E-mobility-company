@@ -163,7 +163,7 @@ public class MainMenu extends JFrame {
                     mntmMalfunctions = new JMenuItem("Malfunctions");
                     mntmMalfunctions.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //new PlanIProgramFrame().setVisible(true);
+                        new MalfunctionsFrame().setVisible(true);
                     }
                 });
                     mntmMalfunctions.setMnemonic('M');

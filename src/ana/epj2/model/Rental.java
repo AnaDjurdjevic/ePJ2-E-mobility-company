@@ -115,6 +115,7 @@ public class Rental extends Thread{
         int stepDuration = duration / steps;
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
+        checkWiderPart(currentX, currentY);
         final int curX1 = currentX;
         if (vehicle.getMalfunction() != null) {
             SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
@@ -204,12 +205,12 @@ public class Rental extends Thread{
     @Override
     public String toString()
     {
-        return "[Datum=" + dateAndTime +
-                ", korisnik=" + user.getName() +
-                ", ID prevoznog sredstva=" + vehicle.getID() +
-                ", pocetna lokacija=" + startLocation+
-                ", odrediste=" + endLocation+
-                ", trajanje=" + duration+
-                ", kvar=" + vehicle.getMalfunction();
+        return "[Date=" + dateAndTime +
+                ", User=" + user.getName() +
+                ", vehicle ID=" + vehicle.getID() +
+                ", start location=" + startLocation+
+                ", end location=" + endLocation+
+                ", duration=" + duration+
+                ", malfunction=" + vehicle.getMalfunction();
     }
 }

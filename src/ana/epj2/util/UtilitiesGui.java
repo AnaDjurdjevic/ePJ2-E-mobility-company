@@ -36,11 +36,20 @@ public class UtilitiesGui {
                 dataVector.add(vehicleVector);
             }
         }
-        for (Vector<Object> row : dataVector) {
-            for (Object obj : row) {
-                System.out.print(obj + " ");
+        return dataVector;
+    }
+    public static Vector<Vector<Object>> getMalfunctions(Map<String, Vehicle> vehicles) {
+        Vector<Vector<Object>> dataVector = new Vector<>();
+        for (Map.Entry<String, Vehicle> entry : vehicles.entrySet()) {
+            Vehicle vehicle = entry.getValue();
+            if(vehicle.getMalfunction() != null){
+            Vector<Object> malfunctionVector = new Vector<>();
+            malfunctionVector.add(vehicle.getClass().getSimpleName());
+            malfunctionVector.add(vehicle.getID());
+            malfunctionVector.add(vehicle.getMalfunction().getDateAndTime());
+            malfunctionVector.add(vehicle.getMalfunction().getReason());
+            dataVector.add(malfunctionVector);
             }
-            System.out.println();
         }
         return dataVector;
     }

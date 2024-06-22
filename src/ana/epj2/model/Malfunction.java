@@ -13,6 +13,22 @@ public class Malfunction {
         this.dateAndTime = dateAndTime;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public void setDateAndTime(LocalDateTime dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
     @Override
     public String toString()
     {

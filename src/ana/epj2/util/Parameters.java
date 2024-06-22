@@ -33,7 +33,7 @@ public class Parameters {
     private void loadParameters() {
         Properties appProps = new Properties();
         try {
-            appProps.load(new FileInputStream(Simulation.appConfigPath));
+            appProps.load(new FileInputStream(Simulation.APP_CONFIG_PATH));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

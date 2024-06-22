@@ -2,9 +2,18 @@ package ana.epj2.model;
 
 import ana.epj2.util.Parameters;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Bill implements Serializable {
+    public static final String BILL_STORE_PATH = "resources" + File.separator +"Bills";
+    private static int id;
     private Rental rental;
     private double amount;
     private double totalPayment;
@@ -15,8 +24,14 @@ public class Bill implements Serializable {
 
     public Bill(Rental rental)
     {
+        id++;
         this.rental = rental;
-        //todo mzd ovdje da ide svo izracunavanje?
+        calculateInitialPrice();
+        calculateDistance();
+        calculateDiscount();
+        calculateDiscountProm();
+        calculateAmount();
+        calculateTotalPayment();
     }
 
     public Rental getRental() {
@@ -44,9 +59,7 @@ public class Bill implements Serializable {
     }
 
     private void calculateDistance() {
-        double unitPrice = getUnitPrice();
-        double distancePrice = getDistancePrice();
-        distance = unitPrice * distancePrice;
+        distance = initialPrice * getDistancePrice();
     }
     private void calculateDiscount()
     {
@@ -70,8 +83,12 @@ public class Bill implements Serializable {
     {
         if(rental.getVehicle().getMalfunction()==null)
         {
-            double unitPrice = getUnitPrice();
-            initialPrice = rental.getDuration() * unitPrice;
+            try {
+                initialPrice = rental.getDuration() * getUnitPrice();
+            }catch(IllegalArgumentException ex)
+            {
+                ex.printStackTrace();
+            }
         }else {
             initialPrice = 0.0;
         }
@@ -79,7 +96,7 @@ public class Bill implements Serializable {
     private void calculateAmount()
     {
         try {
-            amount = distance * rental.getDuration();
+            amount = distance;
         }catch (IllegalArgumentException ex)
         {
             amount = 0.0;
@@ -89,9 +106,9 @@ public class Bill implements Serializable {
 
     private void calculateTotalPayment()
     {
-        totalPayment = amount - (amount * discount)- (amount * discountProm);
+        totalPayment = amount - discount - discountProm;
     }
-    private double getUnitPrice()
+    private double getUnitPrice() throws IllegalArgumentException
     {
         double unitPrice;
         Parameters parameters = Parameters.getInstance();
@@ -116,5 +133,42 @@ public class Bill implements Serializable {
             distancePrice = parameters.getDistanceNarrow();
         }
         return distancePrice;
+    }
+    public boolean createBillFile() {
+        File destinationFolder = new File(BILL_STORE_PATH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d_M_yyyy");
+        String formattedDate = rental.getDateAndTime().format(formatter);
+        boolean folderExists = destinationFolder.exists();
+        if (!folderExists) {
+            folderExists = destinationFolder.mkdir();
+        }
+
+        if (folderExists) {
+            try {
+                PrintWriter pw = new PrintWriter(new File(BILL_STORE_PATH + File.separator + id + "_" + rental.getUser().getName() + "_" + formattedDate));
+                pw.println(this);
+                pw.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    private void printBill()
+    {
+
+    }
+    @Override
+    public String toString()
+    {
+        return "[Bill for rental=" + rental +
+                ", initialPrice=" + initialPrice +
+                ", distance=" + distance +
+                ", discount=" + discount+
+                ", discountProm=" + discountProm+
+                ", amount=" + amount+
+                ", totalPayment=" + totalPayment+
+                ", wider area=" + rental.wasInTheWiderPart + "]";
     }
 }

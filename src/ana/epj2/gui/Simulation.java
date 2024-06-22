@@ -12,10 +12,11 @@ import java.util.List;
 
 public class Simulation {
 
-    public static final String appConfigPath = "resources" + File.separator +"app.properties";
+    public static final String APP_CONFIG_PATH = "resources" + File.separator +"app.properties";
     public static Map<String , Vehicle > vehicles = new HashMap<>();
     public static List<Rental> rentals = new ArrayList<>();
     public static Map<LocalDateTime,List<Rental>> blockOfRentals = new TreeMap<>();
+    public static List<Bill> bills = new ArrayList<>();
 
     private static synchronized  void simulateMovement(VehicleMovementGUI vMGui)
     {
@@ -24,11 +25,11 @@ public class Simulation {
             System.out.println(entry.getKey());
             for (Rental rental : rentalList) {
                 rental.start();
-                //TODO kreiraj racun
             }
             for (Rental rental : rentalList) {
                 try {
                     rental.join();
+                    //TODO printaj racun
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

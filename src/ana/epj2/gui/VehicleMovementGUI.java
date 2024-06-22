@@ -13,7 +13,8 @@ public class VehicleMovementGUI extends JFrame {
 
     public VehicleMovementGUI() {
         setTitle("ePJ2");
-        setSize(1300, 700);
+        setBounds(100, 100, 815, 420);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];
