@@ -1,49 +1,51 @@
 package ana.epj2.gui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu extends JFrame {
 
-        private JFrame ovaj;
+        private JFrame thisF;
 
         private JPanel contentPane;
         private JMenuBar menuBar;
-        private JMenu mnAplikacija;
-        private JMenuItem mntmIzlaz;
-        private JMenu mnSifarnici;
-        private JMenuItem mntmFakulteti;
-        private JMenuItem mntmPredmeti;
-        private JMenuItem mntmStudijskiProgrami;
-        private JMenu mnPlanIProgram;
-        private JMenuItem mntmPlanIProgram;
-        private JMenu mnIzvestaji;
-        private JMenuItem mntmProsecneOceneStudenata;
+        private JMenu mnApplication;
+        private JMenuItem mntmExit;
+        private JMenu mnVehicles;
+        private JMenuItem mntmVehicles;
+        private JMenu mnMalfunctions;
+        private JMenuItem mntmMalfunctions;
+        private JMenu mnBusinessResults;
+        private JMenuItem mntmBusinessResults;
+        private JMenu mnRepairCosts;
+        private JMenuItem mntmRepairCosts;
 
         /**
          * Create the frame.
          */
-       /* public MainMenu() {
+       public MainMenu() {
             initialize();
         }
 
         private void initialize() {
-            ovaj = this;
+                thisF = this;
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent arg0) {
-                    int rezultat = JOptionPane.showOptionDialog(ovaj,
-                            "Da li ste sigurni da želite zatvoriti aplikaciju?",
-                            "Potvrda zatvaranja", JOptionPane.YES_NO_OPTION,
+                        String[] options = {"Yes", "No"};
+                        int rezultat = JOptionPane.showOptionDialog(thisF,
+                            "Are you sure you want to close the application?",
+                            "Confirmation of closure", JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE, null,
-                            Utilities.YES_NO_OPTIONS,
-                            Utilities.YES_NO_OPTIONS[1]);
-                    if (rezultat == JOptionPane.YES_OPTION)
-                        System.exit(0);
+                                options,
+                                options[1]);
+                        if (rezultat == JOptionPane.YES_OPTION)
+                                System.exit(0);
                 }
             });
-            setTitle("UniIS - Univerzitetski informacioni sistem");
+            setTitle("ePJ2 E-mobility company");
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             setBounds(100, 100, 815, 420);
             setLocationRelativeTo(null);
@@ -59,135 +61,132 @@ public class MainMenu extends JFrame {
         private JMenuBar getMenuBar_1() {
             if (menuBar == null) {
                 menuBar = new JMenuBar();
-                menuBar.add(getMnAplikacija());
-                menuBar.add(getMnSifarnici());
-                menuBar.add(getMnPlanIProgram());
-                menuBar.add(getMnIzvestaji());
+                menuBar.add(getMnApplication());
+                menuBar.add(getMnVehicles());
+                menuBar.add(getMnMalfunctions());
+                menuBar.add(getMnBusinessResults());
+                menuBar.add(getmnRepairCosts());
             }
             return menuBar;
         }
 
-        private JMenu getMnAplikacija() {
-            if (mnAplikacija == null) {
-                mnAplikacija = new JMenu("Aplikacija");
-                mnAplikacija.setMnemonic('A');
-                mnAplikacija.add(getMntmIzlaz());
+        private JMenu getMnApplication() {
+            if (mnApplication == null) {
+                    mnApplication = new JMenu("Application");
+                    mnApplication.setMnemonic('A');
+                    mnApplication.add(getMntmExit());
             }
-            return mnAplikacija;
+            return mnApplication;
         }
 
-        private JMenuItem getMntmIzlaz() {
-            if (mntmIzlaz == null) {
-                mntmIzlaz = new JMenuItem("Izlaz");
-                mntmIzlaz.addActionListener(new ActionListener() {
+        private JMenuItem getMntmExit() {
+            if (mntmExit == null) {
+                    mntmExit = new JMenuItem("Exit");
+                    mntmExit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
-                        ovaj.getToolkit()
+                            thisF.getToolkit()
                                 .getSystemEventQueue()
                                 .postEvent(
-                                        new WindowEvent(ovaj,
+                                        new WindowEvent(thisF,
                                                 WindowEvent.WINDOW_CLOSING));
                     }
                 });
-                mntmIzlaz.setMnemonic('I');
-                mntmIzlaz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+                    mntmExit.setMnemonic('E');
+                    mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
                         InputEvent.ALT_MASK));
             }
-            return mntmIzlaz;
+            return mntmExit;
         }
 
-        private JMenu getMnSifarnici() {
-            if (mnSifarnici == null) {
-                mnSifarnici = new JMenu("Šifarnici");
-                mnSifarnici.setMnemonic('F');
-                mnSifarnici.add(getMntmFakulteti());
-                mnSifarnici.add(getMntmPredmeti());
-                mnSifarnici.add(getMntmStudijskiProgrami());
+        private JMenu getMnVehicles() {
+            if (mnVehicles == null) {
+                    mnVehicles = new JMenu("Vehicles");
+                    mnVehicles.setMnemonic('V');
+                    mnVehicles.add(getMntmVehicles());
             }
-            return mnSifarnici;
+            return mnVehicles;
         }
 
-        private JMenuItem getMntmFakulteti() {
-            if (mntmFakulteti == null) {
-                mntmFakulteti = new JMenuItem("Fakulteti...");
-                mntmFakulteti.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent arg0) {
-                        new FakultetiFrame().setVisible(true);
-                    }
-                });
-                mntmFakulteti.setMnemonic('F');
-            }
-            return mntmFakulteti;
-        }
-
-        private JMenuItem getMntmPredmeti() {
-            if (mntmPredmeti == null) {
-                mntmPredmeti = new JMenuItem("Predmeti...");
-                mntmPredmeti.addActionListener(new ActionListener() {
+        private JMenuItem getMntmVehicles() {
+            if (mntmVehicles == null) {
+                    mntmVehicles = new JMenuItem("Vehicles...");
+                    mntmVehicles.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        new PredmetiFrame(false).setVisible(true);
+                        //new PredmetiFrame(false).setVisible(true);
                     }
                 });
-                mntmPredmeti.setMnemonic('P');
+                    mntmVehicles.setMnemonic('V');
             }
-            return mntmPredmeti;
+            return mntmVehicles;
         }
 
-        private JMenuItem getMntmStudijskiProgrami() {
-            if (mntmStudijskiProgrami == null) {
-                mntmStudijskiProgrami = new JMenuItem("Studijski programi...");
-                mntmStudijskiProgrami.addActionListener(new ActionListener() {
+
+        private JMenu getMnMalfunctions() {
+            if (mnMalfunctions == null) {
+                    mnMalfunctions = new JMenu("Malfunctions");
+                    mnMalfunctions.setMnemonic('M');
+                    mnMalfunctions.add(getMntmMalfunctions());
+            }
+            return mnMalfunctions;
+        }
+
+        private JMenuItem getMntmMalfunctions() {
+            if (mntmMalfunctions == null) {
+                    mntmMalfunctions = new JMenuItem("Malfunctions");
+                    mntmMalfunctions.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        new StudijskiProgramiFrame(false).setVisible(true);
+                        //new PlanIProgramFrame().setVisible(true);
                     }
                 });
-                mntmStudijskiProgrami.setMnemonic('S');
+                    mntmMalfunctions.setMnemonic('M');
             }
-            return mntmStudijskiProgrami;
+            return mntmMalfunctions;
         }
 
-        private JMenu getMnPlanIProgram() {
-            if (mnPlanIProgram == null) {
-                mnPlanIProgram = new JMenu("Plan i program");
-                mnPlanIProgram.setMnemonic('P');
-                mnPlanIProgram.add(getMntmPlanIProgram());
+        private JMenu getMnBusinessResults() {
+            if (mnBusinessResults == null) {
+                    mnBusinessResults = new JMenu("Business Results");
+                    mnBusinessResults.setMnemonic('B');
+                    mnBusinessResults.add(getMntmBusinessResults());
             }
-            return mnPlanIProgram;
+            return mnBusinessResults;
         }
 
-        private JMenuItem getMntmPlanIProgram() {
-            if (mntmPlanIProgram == null) {
-                mntmPlanIProgram = new JMenuItem("Plan i program");
-                mntmPlanIProgram.addActionListener(new ActionListener() {
+        private JMenuItem getMntmBusinessResults() {
+            if (mntmBusinessResults == null) {
+                    mntmBusinessResults = new JMenuItem(
+                        "Business Results...");
+                    mntmBusinessResults.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        new PlanIProgramFrame().setVisible(true);
+                        //new IzvestajiFrame().setVisible(true);
                     }
                 });
-                mntmPlanIProgram.setMnemonic('P');
+                    mntmBusinessResults.setMnemonic('B');
             }
-            return mntmPlanIProgram;
+            return mntmBusinessResults;
         }
 
-        private JMenu getMnIzvestaji() {
-            if (mnIzvestaji == null) {
-                mnIzvestaji = new JMenu("Izveštaji");
-                mnIzvestaji.setMnemonic('I');
-                mnIzvestaji.add(getMntmProsecneOceneStudenata());
-            }
-            return mnIzvestaji;
+        private JMenu getmnRepairCosts() {
+                if (mnRepairCosts == null) {
+                        mnRepairCosts = new JMenu("Repair Costs");
+                        mnRepairCosts.setMnemonic('R');
+                        mnRepairCosts.add(getmntmRepairCosts());
+                }
+                return mnRepairCosts;
         }
 
-        private JMenuItem getMntmProsecneOceneStudenata() {
-            if (mntmProsecneOceneStudenata == null) {
-                mntmProsecneOceneStudenata = new JMenuItem(
-                        "Prosečne ocene studenata...");
-                mntmProsecneOceneStudenata.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        new IzvestajiFrame().setVisible(true);
-                    }
-                });
-                mntmProsecneOceneStudenata.setMnemonic('P');
-            }
-            return mntmProsecneOceneStudenata;
-        }*/
+        private JMenuItem getmntmRepairCosts() {
+                if (mntmRepairCosts == null) {
+                        mntmRepairCosts = new JMenuItem(
+                                "Repair Costs...");
+                        mntmRepairCosts.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                        //new IzvestajiFrame().setVisible(true);
+                                }
+                        });
+                        mntmRepairCosts.setMnemonic('R');
+                }
+                return mntmRepairCosts;
+        }
 
 }

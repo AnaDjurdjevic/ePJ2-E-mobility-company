@@ -3,10 +3,11 @@ package ana.epj2.gui;
 import ana.epj2.model.*;
 import ana.epj2.util.DataLoader;
 
+import java.awt.*;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.*;
-
+import java.util.List;
 
 
 public class Simulation {
@@ -41,6 +42,16 @@ public class Simulation {
         }
     }
     public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    MainMenu frame = new MainMenu();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         VehicleMovementGUI gui = new VehicleMovementGUI();
         DataLoader.loadVehicles();
         DataLoader.loadRentals(gui);

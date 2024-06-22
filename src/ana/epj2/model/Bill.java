@@ -66,7 +66,7 @@ public class Bill implements Serializable {
         }
     }
 
-    private void calculateInitialPrice()//TODO provjeri za kvar
+    private void calculateInitialPrice()
     {
         if(rental.getVehicle().getMalfunction()==null)
         {
