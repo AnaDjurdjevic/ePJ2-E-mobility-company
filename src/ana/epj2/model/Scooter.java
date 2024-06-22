@@ -10,6 +10,15 @@ public class Scooter extends Vehicle{
         this.maxSpeed = maxSpeed;
         this.repairCoefficient = 0.02;
     }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
     @Override
     public String toString()
     {

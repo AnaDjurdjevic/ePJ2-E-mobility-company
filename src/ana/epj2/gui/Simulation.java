@@ -42,6 +42,7 @@ public class Simulation {
         }
     }
     public static void main(String[] args) {
+        DataLoader.loadVehicles();
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -53,7 +54,6 @@ public class Simulation {
             }
         });
         VehicleMovementGUI gui = new VehicleMovementGUI();
-        DataLoader.loadVehicles();
         DataLoader.loadRentals(gui);
         simulateMovement(gui);
     }

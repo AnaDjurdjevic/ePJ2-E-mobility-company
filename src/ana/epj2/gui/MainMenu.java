@@ -14,7 +14,9 @@ public class MainMenu extends JFrame {
         private JMenu mnApplication;
         private JMenuItem mntmExit;
         private JMenu mnVehicles;
-        private JMenuItem mntmVehicles;
+        private JMenuItem mntmCars;
+        private JMenuItem mntmScooters;
+        private JMenuItem mntmBicycles;
         private JMenu mnMalfunctions;
         private JMenuItem mntmMalfunctions;
         private JMenu mnBusinessResults;
@@ -102,22 +104,48 @@ public class MainMenu extends JFrame {
             if (mnVehicles == null) {
                     mnVehicles = new JMenu("Vehicles");
                     mnVehicles.setMnemonic('V');
-                    mnVehicles.add(getMntmVehicles());
+                    mnVehicles.add(getMntmCars());
+                    mnVehicles.add(getMntmScooters());
+                    mnVehicles.add(getMntmBicycles());
             }
             return mnVehicles;
         }
 
-        private JMenuItem getMntmVehicles() {
-            if (mntmVehicles == null) {
-                    mntmVehicles = new JMenuItem("Vehicles...");
-                    mntmVehicles.addActionListener(new ActionListener() {
+        private JMenuItem getMntmCars() {
+            if (mntmCars == null) {
+                mntmCars = new JMenuItem("Cars...");
+                mntmCars.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //new PredmetiFrame(false).setVisible(true);
+                        new CarsFrame().setVisible(true);
                     }
                 });
-                    mntmVehicles.setMnemonic('V');
+                mntmCars.setMnemonic('C');
             }
-            return mntmVehicles;
+            return mntmCars;
+        }
+        private JMenuItem getMntmScooters() {
+                if (mntmScooters == null) {
+                    mntmScooters = new JMenuItem("Scooters...");
+                    mntmScooters.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            new ScootersFrame().setVisible(true);
+                                }
+                        });
+                    mntmScooters.setMnemonic('S');
+                }
+                return mntmScooters;
+        }
+        private JMenuItem getMntmBicycles() {
+                if (mntmBicycles == null) {
+                    mntmBicycles = new JMenuItem("Bicycles...");
+                    mntmBicycles.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                        new BicyclesFrame().setVisible(true);
+                                }
+                        });
+                    mntmBicycles.setMnemonic('V');
+                }
+                return mntmBicycles;
         }
 
 
