@@ -186,7 +186,7 @@ public class MainMenu extends JFrame {
                         "Business Results...");
                     mntmBusinessResults.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        //new IzvestajiFrame().setVisible(true);
+                        new BusinessResultsFrame().setVisible(true);
                     }
                 });
                     mntmBusinessResults.setMnemonic('B');

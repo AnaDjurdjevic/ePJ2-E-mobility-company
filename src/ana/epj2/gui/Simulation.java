@@ -1,6 +1,7 @@
 package ana.epj2.gui;
 
 import ana.epj2.model.*;
+import ana.epj2.util.BillsCreator;
 import ana.epj2.util.DataLoader;
 
 import java.awt.*;
@@ -16,7 +17,6 @@ public class Simulation {
     public static Map<String , Vehicle > vehicles = new HashMap<>();
     public static List<Rental> rentals = new ArrayList<>();
     public static Map<LocalDateTime,List<Rental>> blockOfRentals = new TreeMap<>();
-    public static List<Bill> bills = new ArrayList<>();
 
     private static synchronized  void simulateMovement(VehicleMovementGUI vMGui)
     {
@@ -44,6 +44,15 @@ public class Simulation {
     }
     public static void main(String[] args) {
         DataLoader.loadVehicles();
+        VehicleMovementGUI gui = new VehicleMovementGUI();
+        DataLoader.loadRentals(gui);
+        BillsCreator.addBills();
+        for (Map.Entry<LocalDateTime, List<Bill>> entry : BillsCreator.bills.entrySet()) {
+            List<Bill> billList = entry.getValue();
+            for (Bill bill : billList) {
+                System.out.println(bill);
+            }
+        }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -54,8 +63,6 @@ public class Simulation {
                 }
             }
         });
-        VehicleMovementGUI gui = new VehicleMovementGUI();
-        DataLoader.loadRentals(gui);
         simulateMovement(gui);
     }
 }

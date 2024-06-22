@@ -115,7 +115,6 @@ public class Rental extends Thread{
         int stepDuration = duration / steps;
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
-        checkWiderPart(currentX, currentY);
         final int curX1 = currentX;
         if (vehicle.getMalfunction() != null) {
             SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
@@ -142,7 +141,6 @@ public class Rental extends Thread{
             int prevX = currentX;
             currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
             vehicle.dischargeBattery(stepDuration);
-            checkWiderPart(currentX, currentY);
             if (vehicle.emptyBattery == true) {
                 final int curX1 = prevX;
                 SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
@@ -161,7 +159,6 @@ public class Rental extends Thread{
             int prevY = currentY;
             currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
             vehicle.dischargeBattery(stepDuration);
-            checkWiderPart(currentX, currentY);
             if (vehicle.emptyBattery == true) {
                 final int curX1 = currentX;
                 final int curY1 = prevY;
@@ -175,7 +172,7 @@ public class Rental extends Thread{
             sleepForDuration(stepDuration);
         }
     }
-    private synchronized void checkWiderPart(int x, int y) {
+    public void checkWiderPart(int x, int y) {
         if (!wasInTheWiderPart && isLocationInWider(x, y)) {
             wasInTheWiderPart = true;
         }
