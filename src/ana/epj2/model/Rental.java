@@ -116,7 +116,6 @@ public class Rental extends Thread{
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
         final int curX1 = currentX;
-        //ako vozilo ima kvar prikazi ga 3 sekunde na pocetnoj poziciji i neka nestane
         if (vehicle.getMalfunction() != null) {
             SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
             sleepForDuration(3);
@@ -125,25 +124,31 @@ public class Rental extends Thread{
         }
         SwingUtilities.invokeLater(() ->vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
         sleepForDuration(stepDuration);
-        currentX = moveHorizontally(currentX, currentY, stepDuration);
-        moveVertically(currentX, currentY, stepDuration);
+        if (!vehicle.emptyBattery) {
+            currentX = moveHorizontally(currentX, currentY, stepDuration);
+        }
+        if (!vehicle.emptyBattery) {
+            moveVertically(currentX, currentY, stepDuration);
+        }
         final int curX2 = currentX;
-        SwingUtilities.invokeLater(() ->vMGui.updateGrid(curX2, currentY, endLocation.getX(), endLocation.getY(), vehicle));
-        sleepForDuration(stepDuration);
+        if (!vehicle.emptyBattery) {
+            SwingUtilities.invokeLater(() -> vMGui.updateGrid(curX2, currentY, endLocation.getX(), endLocation.getY(), vehicle));
+            sleepForDuration(stepDuration);
+        }
     }
     private synchronized int moveHorizontally(int currentX, int currentY, int stepDuration) {
         while (currentX != endLocation.getX()) {
+            int prevX = currentX;
+            currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
+            vehicle.dischargeBattery(stepDuration);
+            checkWiderPart(currentX, currentY);
             if (vehicle.emptyBattery == true) {
-                final int curX1 = currentX;
+                final int curX1 = prevX;
                 SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
                 sleepForDuration(3);
                 SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
                 return currentX;
             }
-            int prevX = currentX;
-            currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
-            vehicle.dischargeBattery(stepDuration);
-            checkWiderPart(currentX, currentY);
             final int curX = currentX;
             SwingUtilities.invokeLater(() ->vMGui.updateGrid(prevX, currentY, curX, currentY, vehicle));
             sleepForDuration(stepDuration);
@@ -152,18 +157,18 @@ public class Rental extends Thread{
     }
     private synchronized void moveVertically(int currentX, int currentY, int stepDuration) {
         while (currentY != endLocation.getY()) {
+            int prevY = currentY;
+            currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
+            vehicle.dischargeBattery(stepDuration);
+            checkWiderPart(currentX, currentY);
             if (vehicle.emptyBattery == true) {
                 final int curX1 = currentX;
-                final int curY1 = currentY;
+                final int curY1 = prevY;
                 SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, curY1, vehicle));
                 sleepForDuration(3);
                 SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, curY1, vehicle));
                 return;
             }
-            int prevY = currentY;
-            currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
-            vehicle.dischargeBattery(stepDuration);
-            checkWiderPart(currentX, currentY);
             final int curY = currentY;
             SwingUtilities.invokeLater(() ->vMGui.updateGrid(currentX, prevY, currentX, curY, vehicle));
             sleepForDuration(stepDuration);
