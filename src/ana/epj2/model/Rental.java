@@ -107,11 +107,14 @@ public class Rental extends Thread{
     }
     @Override
     public void run() {
+        if(vehicle.emptyBattery == true)
+        {
+            vehicle.chargeBattery(100);
+        }
         int steps = Math.abs(endLocation.getX() - startLocation.getX()) + Math.abs(endLocation.getY() - startLocation.getY()) + 1;
         int stepDuration = duration / steps;
         int currentX = startLocation.getX();
         int currentY = startLocation.getY();
-
         final int curX1 = currentX;
         //ako vozilo ima kvar prikazi ga 3 sekunde na pocetnoj poziciji i neka nestane
         if (vehicle.getMalfunction() != null) {
@@ -120,26 +123,23 @@ public class Rental extends Thread{
             SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
             return;
         }
-        if (vehicle.emptyBattery == true) {
-            SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
-            sleepForDuration(3);
-            SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
-            vehicle.chargeBattery(100);
-            return;
-        }
         SwingUtilities.invokeLater(() ->vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
         sleepForDuration(stepDuration);
-
         currentX = moveHorizontally(currentX, currentY, stepDuration);
         moveVertically(currentX, currentY, stepDuration);
         final int curX2 = currentX;
         SwingUtilities.invokeLater(() ->vMGui.updateGrid(curX2, currentY, endLocation.getX(), endLocation.getY(), vehicle));
-
         sleepForDuration(stepDuration);
     }
-
     private synchronized int moveHorizontally(int currentX, int currentY, int stepDuration) {
         while (currentX != endLocation.getX()) {
+            if (vehicle.emptyBattery == true) {
+                final int curX1 = currentX;
+                SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, currentY, vehicle));
+                sleepForDuration(3);
+                SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, currentY, vehicle));
+                return currentX;
+            }
             int prevX = currentX;
             currentX += (endLocation.getX() - startLocation.getX()) / Math.abs(endLocation.getX() - startLocation.getX());
             vehicle.dischargeBattery(stepDuration);
@@ -150,9 +150,16 @@ public class Rental extends Thread{
         }
         return currentX;
     }
-
     private synchronized void moveVertically(int currentX, int currentY, int stepDuration) {
         while (currentY != endLocation.getY()) {
+            if (vehicle.emptyBattery == true) {
+                final int curX1 = currentX;
+                final int curY1 = currentY;
+                SwingUtilities.invokeLater(() -> vMGui.updateGrid(-1, -1, curX1, curY1, vehicle));
+                sleepForDuration(3);
+                SwingUtilities.invokeLater(() -> vMGui.removeVehicleFromGrid(curX1, curY1, vehicle));
+                return;
+            }
             int prevY = currentY;
             currentY += (endLocation.getY() - startLocation.getY()) / Math.abs(endLocation.getY() - startLocation.getY());
             vehicle.dischargeBattery(stepDuration);
@@ -162,13 +169,11 @@ public class Rental extends Thread{
             sleepForDuration(stepDuration);
         }
     }
-
     private synchronized void checkWiderPart(int x, int y) {
-        if (isLocationInWider(x, y)) {
+        if (!wasInTheWiderPart && isLocationInWider(x, y)) {
             wasInTheWiderPart = true;
         }
     }
-
     private void sleepForDuration(int stepDuration) {
         try {
             sleep(stepDuration * 1000);
@@ -191,7 +196,6 @@ public class Rental extends Thread{
         }
         return true;
     }
-
     @Override
     public String toString()
     {

@@ -82,9 +82,9 @@ public abstract class Vehicle {
     public void dischargeBattery(int amount)
     {
         this.currentBatteryLevel -= amount;
-        if(this.currentBatteryLevel < 0)
+        if(this.currentBatteryLevel < 10)
         {
-            this.currentBatteryLevel = 0;
+            this.currentBatteryLevel = 10;
             emptyBattery = true;
         }
     }

@@ -13,7 +13,7 @@ public class VehicleMovementGUI extends JFrame {
 
     public VehicleMovementGUI() {
         setTitle("ePJ2");
-        setSize(1000, 700);
+        setSize(1300, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
         gridPanels = new JPanel[GRID_SIZE][GRID_SIZE];
@@ -52,6 +52,7 @@ public class VehicleMovementGUI extends JFrame {
                 gridPanels[i][j].repaint();
             }
         }
+        vehiclePositions.clear();
     }
 
     public synchronized void updateGrid(int prevX, int prevY, int x, int y, Vehicle vehicle) {
@@ -68,7 +69,7 @@ public class VehicleMovementGUI extends JFrame {
         JPanel panel = gridPanels[x][y];
         panel.removeAll();
         for (Vehicle v : vehiclePositions.get(point)) {
-            JLabel label = new JLabel(  v.getID() + " [" + v.getCurrentBatteryLevel() + "]");
+            JLabel label = new JLabel(  v.getID() + " [" + v.getCurrentBatteryLevel() + "%]");
             label.setOpaque(true);
             label.setBackground(vehicle.getColor());
             panel.add(label);
@@ -89,7 +90,7 @@ public class VehicleMovementGUI extends JFrame {
         panel.removeAll();
         if (vehiclesAtPoint != null) {
             for (Vehicle v : vehiclesAtPoint) {
-                JLabel label = new JLabel(v.getID() + " [" + v.getCurrentBatteryLevel() + "]");
+                JLabel label = new JLabel(v.getID() + " [" + v.getCurrentBatteryLevel() + "%]");
                 label.setOpaque(true);
                 label.setBackground(vehicle.getColor());
                 panel.add(label);

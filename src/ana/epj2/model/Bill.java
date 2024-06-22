@@ -2,7 +2,9 @@ package ana.epj2.model;
 
 import ana.epj2.util.Parameters;
 
-public class Bill {
+import java.io.Serializable;
+
+public class Bill implements Serializable {
     private Rental rental;
     private double amount;
     private double totalPayment;
@@ -14,9 +16,7 @@ public class Bill {
     public Bill(Rental rental)
     {
         this.rental = rental;
-        amount = 0.0;
-        totalPayment = 0.0;
-        distance = 0.0;
+        //todo mzd ovdje da ide svo izracunavanje?
     }
 
     public Rental getRental() {
