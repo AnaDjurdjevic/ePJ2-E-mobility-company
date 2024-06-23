@@ -2,6 +2,10 @@ package ana.epj2.util;
 
 import ana.epj2.model.*;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -56,25 +60,69 @@ public class UtilitiesGui {
 
     public static Vector<Vector<Object>> getBussinesResults(Map<LocalDate, List<Bill>> bills) {
         Vector<Vector<Object>> dataVector = new Vector<>();
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        double grandTotalIncome = 0.0;
+        double grandTotalDiscounts = 0.0;
+        double grandTotalPromotions = 0.0;
+        double grandTotalRidesWide = 0.0;
+        double grandTotalRidesNarrow = 0.0;
+        double grandTotalMaintenance = 0.0;
+        double grandTotalRepairs = 0.0;
+
         for (Map.Entry<LocalDate, List<Bill>> entry : bills.entrySet()) {
             LocalDate date = entry.getKey();
             List<Bill> billList = entry.getValue();
             double totalIncome = 0.0;
             double totalDiscounts = 0.0;
             double totalPromotions = 0.0;
+            double totalRidesWide = 0.0;
+            double totalRidesNarrow = 0.0;
+            double totalMaintenance = 0.0;
+            double totalRepairs = 0.0;
             for (Bill bill : billList) {
                 totalIncome += bill.getTotalPayment();
                 totalDiscounts += bill.getDiscount();
                 totalPromotions += bill.getDiscountProm();
+                if (bill.getRental().isWasInTheWiderPart()) {
+                    totalRidesWide += bill.getTotalPayment();
+                } else {
+                    totalRidesNarrow += bill.getTotalPayment();
+                }
+                totalMaintenance += bill.getTotalPayment() * 0.2;
+                totalRepairs += bill.getRepairCost();
             }
+            grandTotalIncome += totalIncome;
+            grandTotalDiscounts += totalDiscounts;
+            grandTotalPromotions += totalPromotions;
+            grandTotalRidesWide += totalRidesWide;
+            grandTotalRidesNarrow += totalRidesNarrow;
+            grandTotalMaintenance += totalMaintenance;
+            grandTotalRepairs += totalRepairs;
             Vector<Object> row = new Vector<>();
             row.add(date);
-            row.add(totalIncome);
-            row.add(totalDiscounts);
-            row.add(totalPromotions);
-            // Dodajte ostale potrebne kolone ovde
+            row.add(formatter.format(totalIncome));
+            row.add(formatter.format(totalDiscounts));
+            row.add(formatter.format(totalPromotions));
+            row.add(formatter.format(totalMaintenance));
+            row.add(formatter.format(totalRepairs));
+            row.add(formatter.format(totalRidesWide));
+            row.add(formatter.format(totalRidesNarrow));
             dataVector.add(row);
         }
+        double totalCompanyCosts = grandTotalIncome * 0.2;
+        double totalTax = (grandTotalIncome - grandTotalMaintenance - grandTotalRepairs - totalCompanyCosts) * 0.1;
+        Vector<Object> totalRow = new Vector<>();
+        totalRow.add("Total");
+        totalRow.add(formatter.format(grandTotalIncome));
+        totalRow.add(formatter.format(grandTotalDiscounts));
+        totalRow.add(formatter.format(grandTotalPromotions));
+        totalRow.add(formatter.format(grandTotalMaintenance));
+        totalRow.add(formatter.format(grandTotalRepairs));
+        totalRow.add(formatter.format(grandTotalRidesWide));
+        totalRow.add(formatter.format(grandTotalRidesNarrow));
+        totalRow.add(formatter.format(totalCompanyCosts));
+        totalRow.add(formatter.format(totalTax));
+        dataVector.add(totalRow);
         return dataVector;
     }
 }

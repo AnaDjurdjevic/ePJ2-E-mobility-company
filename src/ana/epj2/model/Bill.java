@@ -175,6 +175,13 @@ public class Bill implements Serializable {
     {
 
     }
+    public double getRepairCost() {
+        double repairCost = 0.0;
+        if (rental.getVehicle().getMalfunction() != null) {
+            repairCost = rental.getVehicle().getRepairCoefficient() * rental.getVehicle().getPurchasePrice();
+        }
+        return repairCost;
+    }
     @Override
     public String toString()
     {

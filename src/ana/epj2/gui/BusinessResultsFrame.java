@@ -26,10 +26,12 @@ public class BusinessResultsFrame extends JFrame {
         columns.add("Total income");
         columns.add("Total discount");
         columns.add("Total promotions");
-        columns.add("Total maintenance amount");
-        columns.add("Total amount for defect repairs");
-        columns.add("Total amount of all rides - wide");
-        columns.add("Total amount of all rides - narrow");
+        columns.add("Total maintenance");
+        columns.add("Total repairs");
+        columns.add("Total income - wide");
+        columns.add("Total income - narrow");
+        columns.add("Total company costs");
+        columns.add("Total tax");
         setTitle("Business Results");
         data = UtilitiesGui.getBussinesResults(BillsCreator.bills);
         initialize();
@@ -38,6 +40,7 @@ public class BusinessResultsFrame extends JFrame {
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,6 +75,8 @@ public class BusinessResultsFrame extends JFrame {
             table.getColumnModel().getColumn(5).setPreferredWidth(200);
             table.getColumnModel().getColumn(6).setPreferredWidth(350);
             table.getColumnModel().getColumn(7).setPreferredWidth(150);
+            table.getColumnModel().getColumn(8).setPreferredWidth(350);
+            table.getColumnModel().getColumn(9).setPreferredWidth(150);
         }
         return table;
     }

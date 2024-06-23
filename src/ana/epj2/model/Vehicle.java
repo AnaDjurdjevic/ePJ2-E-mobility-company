@@ -94,6 +94,14 @@ public abstract class Vehicle {
         this.emptyBattery = emptyBattery;
     }
 
+    public double getRepairCoefficient() {
+        return repairCoefficient;
+    }
+
+    public void setRepairCoefficient(double repairCoefficient) {
+        this.repairCoefficient = repairCoefficient;
+    }
+
     public void chargeBattery(int amount)
     {
         this.currentBatteryLevel += amount;

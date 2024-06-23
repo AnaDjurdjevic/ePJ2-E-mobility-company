@@ -64,6 +64,9 @@ public class Rental extends Thread{
     public boolean isHasPromotion() {
         return hasPromotion;
     }
+    public void setHasPromotion(boolean hasPromotion) {
+        this.hasPromotion = hasPromotion;
+    }
 
     public User getUser() {
         return user;
@@ -97,8 +100,12 @@ public class Rental extends Thread{
         this.endLocation = endLocation;
     }
 
-    public void setHasPromotion(boolean hasPromotion) {
-        this.hasPromotion = hasPromotion;
+    public boolean isWasInTheWiderPart() {
+        return wasInTheWiderPart;
+    }
+
+    public void setWasInTheWiderPart(boolean wasInTheWiderPart) {
+        this.wasInTheWiderPart = wasInTheWiderPart;
     }
 
     private boolean isLocationInWider(int x, int y)
