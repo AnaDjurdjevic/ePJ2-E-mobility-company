@@ -1,19 +1,18 @@
 package ana.epj2.model;
 
+import ana.epj2.gui.Simulation;
 import ana.epj2.util.Parameters;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
-public class Bill implements Serializable {
-    public static final String BILL_STORE_PATH = "resources" + File.separator +"Bills";
-    private static int id;
+public class Bill  {
+    private static int id = 0;
+    private int ID;
     private Rental rental;
     private double amount;
     private double totalPayment;
@@ -24,7 +23,7 @@ public class Bill implements Serializable {
 
     public Bill(Rental rental)
     {
-        id++;
+        ID = id++;
         this.rental = rental;
         calculateInitialPrice();
         calculateDistance();
@@ -151,6 +150,14 @@ public class Bill implements Serializable {
         return distancePrice;
     }
     public boolean createBillFile() {
+        Properties appProps = new Properties();
+        try {
+            appProps.load(new FileInputStream(Simulation.APP_CONFIG_PATH));
+        }catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        String BILL_STORE_PATH = appProps.getProperty("BILL_STORE_PATH");
         File destinationFolder = new File(BILL_STORE_PATH);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d_M_yyyy");
         String formattedDate = rental.getDateAndTime().format(formatter);
@@ -161,8 +168,8 @@ public class Bill implements Serializable {
 
         if (folderExists) {
             try {
-                PrintWriter pw = new PrintWriter(new File(BILL_STORE_PATH + File.separator + id + "_" + rental.getUser().getName() + "_" + formattedDate));
-                pw.println(this);
+                PrintWriter pw = new PrintWriter(new File(BILL_STORE_PATH + File.separator + ID + "_" + rental.getUser().getName() + "_" + formattedDate + ".txt"));
+                pw.println(this.formatBill());
                 pw.close();
                 return true;
             } catch (FileNotFoundException e) {
@@ -171,9 +178,49 @@ public class Bill implements Serializable {
         }
         return false;
     }
-    private void printBill()
-    {
 
+    private String formatBill() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("======================================\n");
+        sb.append("            RENTAL BILL               \n");
+        sb.append("======================================\n");
+        sb.append("Bill ID: ").append(ID).append("\n");
+        sb.append("Rental Date: ").append(rental.getDateAndTime()).append("\n");
+        sb.append("---------------------------------------------------------------\n");
+        sb.append("User Information\n");
+        sb.append("======================================\n");
+        sb.append("User: ").append(rental.getUser().getName()).append("\n");
+        sb.append("Personal ID: ").append(rental.getUser().getIDCard()).append("\n");
+        sb.append("Driver's License: ").append(rental.getUser().getDriversLicense()).append("\n");
+        sb.append("---------------------------------------------------------------\n");
+        sb.append("Vehicle Information\n");
+        sb.append("======================================\n");
+        sb.append("Vehicle ID: ").append(rental.getVehicle().getID()).append("\n");
+        if(rental.getVehicle().getMalfunction() != null) {
+            sb.append("Vehicle Malfunction Reason: ").append(rental.getVehicle().getMalfunction().getReason()).append("\n");
+            sb.append("Vehicle Malfunction Date And Time: ").append(rental.getVehicle().getMalfunction().getDateAndTime()).append("\n");
+        }
+        sb.append("---------------------------------------------------------------\n");
+        sb.append("Rental Details\n");
+        sb.append("======================================\n");
+        sb.append("Start Location: ").append(rental.getStartLocation()).append("\n");
+        sb.append("End Location: ").append(rental.getEndLocation()).append("\n");
+        sb.append("Duration: ").append(rental.getDuration()).append(" seconds\n");
+        sb.append("---------------------------------------------------------------\n");
+        sb.append("Price Details\n");
+        sb.append("======================================\n");
+        sb.append("Initial Price: ").append(initialPrice).append("\n");
+        sb.append("Distance Price: ").append(distance).append("\n");
+        sb.append("Discount: ").append(discount).append("\n");
+        sb.append("Promotion Discount: ").append(discountProm).append("\n");
+        sb.append("Total Amount: ").append(amount).append("\n");
+        sb.append("Total Payment: ").append(totalPayment).append("\n");
+        sb.append("======================================\n");
+        return sb.toString();
+    }
+    public void printBill()
+    {
+        createBillFile();
     }
     public double getRepairCost() {
         double repairCost = 0.0;

@@ -32,8 +32,24 @@ public class User {
         return name;
     }
 
+    public String getIDCard() {
+        return IDCard;
+    }
+
+    public void setIDCard(String IDCard) {
+        this.IDCard = IDCard;
+    }
+
+    public String getDriversLicense() {
+        return driversLicense;
+    }
+
+    public void setDriversLicense(String driversLicense) {
+        this.driversLicense = driversLicense;
+    }
+
     @Override
-    public String toString()//TODO za sad ovako
+    public String toString()
     {
         return "User "+ name;
     }

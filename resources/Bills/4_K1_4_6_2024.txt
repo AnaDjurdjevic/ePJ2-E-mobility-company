@@ -1,0 +1,33 @@
+======================================
+            RENTAL BILL               
+======================================
+Bill ID: 5
+Rental Date: 2024-06-04T09:55
+--------------------------------------
+User Information
+======================================
+User: K1
+Personal ID: 902409901
+Driver's License: 810951284
+--------------------------------------
+Vehicle Information
+======================================
+Vehicle ID: T3
+Vehicle Type: 
+--------------------------------------
+Rental Details
+======================================
+Start Location: [19,19]
+End Location: [17,17]
+Duration: 10 seconds
+--------------------------------------
+Price Details
+======================================
+Initial Price: 12.2
+Distance Price: 76.25
+Discount: 0.0
+Promotion Discount: 4.88
+Total Amount: 76.25
+Total Payment: 71.37
+======================================
+

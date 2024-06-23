@@ -30,7 +30,17 @@ public class Simulation {
             for (Rental rental : rentalList) {
                 try {
                     rental.join();
-                    //TODO printaj racun
+                    LocalDate date = rental.getDateAndTime().toLocalDate();
+                    List<Bill> billsForDate = BillsCreator.bills.get(date);
+
+                    if (billsForDate != null) {
+                        for (Bill bill : billsForDate) {
+                            if (bill.getRental().equals(rental)) {
+                                bill.printBill();
+                                break;
+                            }
+                        }
+                    }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

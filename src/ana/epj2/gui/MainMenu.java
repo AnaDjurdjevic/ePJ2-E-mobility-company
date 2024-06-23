@@ -209,7 +209,7 @@ public class MainMenu extends JFrame {
                                 "Repair Costs...");
                         mntmRepairCosts.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent e) {
-                                        //new IzvestajiFrame().setVisible(true);
+                                        new RepairCostsFrame().setVisible(true);
                                 }
                         });
                         mntmRepairCosts.setMnemonic('R');

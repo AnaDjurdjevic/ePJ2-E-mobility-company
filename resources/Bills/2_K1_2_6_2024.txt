@@ -1,0 +1,33 @@
+======================================
+            RENTAL BILL               
+======================================
+Bill ID: 5
+Rental Date: 2024-06-02T09:40
+--------------------------------------
+User Information
+======================================
+User: K1
+Personal ID: 815789205
+Driver's License: 066801625
+--------------------------------------
+Vehicle Information
+======================================
+Vehicle ID: A1
+Vehicle Type: 
+--------------------------------------
+Rental Details
+======================================
+Start Location: [8,8]
+End Location: [11,11]
+Duration: 10 seconds
+--------------------------------------
+Price Details
+======================================
+Initial Price: 12.0
+Distance Price: 60.0
+Discount: 0.0
+Promotion Discount: 4.8
+Total Amount: 60.0
+Total Payment: 55.2
+======================================
+
