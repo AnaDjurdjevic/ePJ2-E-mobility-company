@@ -30,7 +30,6 @@ public class ScootersFrame extends JFrame {
         data = UtilitiesGui.convertMapToVector(Simulation.vehicles, Scooter.class);
         initialize();
     }
-
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);

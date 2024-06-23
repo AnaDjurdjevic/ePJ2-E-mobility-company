@@ -6,7 +6,6 @@ import ana.epj2.exceptions.DuplicateValueException;
 import ana.epj2.exceptions.IndexOutOfRangeException;
 import ana.epj2.gui.*;
 import ana.epj2.model.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class DataLoader {
                         if (Simulation.vehicles.containsKey(line[0])) {
                             throw new DuplicateValueException("Duplicate vehicle ID "+line[0]);
                         }
-                        switch (line[8].toLowerCase()) {//TODO da li je dobro rjesenje sa switch?
+                        switch (line[8].toLowerCase()) {
                             case "automobil":
                                 Simulation.vehicles.put(line[0], new Car((line[0]), line[1], line[2], Double.parseDouble(line[4]), LocalDate.parse(line[3], formatter),
                                         (line[7])) {
@@ -152,7 +151,6 @@ public class DataLoader {
             }
         }
     }
-
     private static String[] splitCSVLine(String line) {
         List<String> result = new ArrayList<>();
         StringBuilder current = new StringBuilder();
@@ -189,6 +187,4 @@ public class DataLoader {
     {
         return value <= max && value >= min;
     }
-
-
 }

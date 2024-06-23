@@ -1,19 +1,12 @@
 package ana.epj2.util;
 
 import ana.epj2.model.*;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-
 public class UtilitiesGui {
-
     public static Vector<Vector<Object>> convertMapToVector(Map<String, Vehicle> vehicles, Class<? extends  Vehicle> vehicleType) {
         Vector<Vector<Object>> dataVector = new Vector<>();
 
@@ -57,8 +50,7 @@ public class UtilitiesGui {
         }
         return dataVector;
     }
-
-    public static Vector<Vector<Object>> getBussinesResults(Map<LocalDate, List<Bill>> bills) {
+    public static Vector<Vector<Object>> getBusinessResults(Map<LocalDate, List<Bill>> bills) {
         Vector<Vector<Object>> dataVector = new Vector<>();
         DecimalFormat formatter = new DecimalFormat("#.##");
         double grandTotalIncome = 0.0;

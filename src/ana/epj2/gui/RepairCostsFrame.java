@@ -1,4 +1,5 @@
 package ana.epj2.gui;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -7,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Vector;
 import java.util.List;
-
 import ana.epj2.model.Bicycle;
 import ana.epj2.model.Car;
 import ana.epj2.model.Scooter;

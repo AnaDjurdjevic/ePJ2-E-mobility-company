@@ -102,7 +102,6 @@ public abstract class Vehicle implements Serializable {
     public void setRepairCoefficient(double repairCoefficient) {
         this.repairCoefficient = repairCoefficient;
     }
-
     public void chargeBattery(int amount)
     {
         this.currentBatteryLevel += amount;
@@ -111,7 +110,6 @@ public abstract class Vehicle implements Serializable {
         }
         emptyBattery = false;
     }
-
     public void dischargeBattery(int amount)
     {
         this.currentBatteryLevel -= amount;
@@ -121,19 +119,15 @@ public abstract class Vehicle implements Serializable {
             emptyBattery = true;
         }
     }
-
-
     public void malfunctionHappened(String reason, LocalDateTime dateAndTime)
     {
         this.malfunction = new Malfunction(reason, dateAndTime);
 
     }
-
     public void repair()
     {
         this.malfunction = null;
     }
-
     @Override
     public boolean equals(Object obj)
     {

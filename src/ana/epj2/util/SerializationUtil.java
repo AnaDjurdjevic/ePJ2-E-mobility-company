@@ -57,7 +57,6 @@ public class SerializationUtil {
                 }
             }
         }
-
         return brokenVehicles;
     }
 }

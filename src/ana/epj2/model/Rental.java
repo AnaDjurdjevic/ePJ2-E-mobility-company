@@ -1,7 +1,6 @@
 package ana.epj2.model;
 
 import ana.epj2.gui.VehicleMovementGUI;
-
 import javax.swing.*;
 import java.time.LocalDateTime;
 
@@ -10,9 +9,9 @@ public class Rental extends Thread{
     private LocalDateTime dateAndTime;
     private User user;
     private Vehicle vehicle;
-    private Location startLocation;//trenutna lokacija gdje je prevozno sredstvo preuzeto Location
-    private Location endLocation;//lokacija gdje se prevozno sredstvo ostavlja nakon korišćenja Location
-    private int duration;// trajanje korišćenja u sekundama
+    private Location startLocation;
+    private Location endLocation;
+    private int duration;
     private boolean hasPromotion = false;
     private boolean hasDiscount = false;
     protected boolean wasInTheWiderPart;
@@ -99,15 +98,12 @@ public class Rental extends Thread{
     public void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
     }
-
     public boolean isWasInTheWiderPart() {
         return wasInTheWiderPart;
     }
-
     public void setWasInTheWiderPart(boolean wasInTheWiderPart) {
         this.wasInTheWiderPart = wasInTheWiderPart;
     }
-
     private boolean isLocationInWider(int x, int y)
     {
         return !(x >= 5 && x <= 14 && y >= 5 && y <= 14);

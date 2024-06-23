@@ -5,7 +5,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
-
 import ana.epj2.util.BillsCreator;
 import ana.epj2.util.UtilitiesGui;
 
@@ -33,7 +32,7 @@ public class BusinessResultsFrame extends JFrame {
         columns.add("Total company costs");
         columns.add("Total tax");
         setTitle("Business Results");
-        data = UtilitiesGui.getBussinesResults(BillsCreator.bills);
+        data = UtilitiesGui.getBusinessResults(BillsCreator.bills);
         initialize();
     }
 
@@ -56,7 +55,6 @@ public class BusinessResultsFrame extends JFrame {
         }
         return scrollPane;
     }
-
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {

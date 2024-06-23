@@ -2,11 +2,7 @@ package ana.epj2.model;
 
 import ana.epj2.gui.Simulation;
 import ana.epj2.util.Parameters;
-
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
@@ -36,43 +32,33 @@ public class Bill  {
     public Rental getRental() {
         return rental;
     }
-
     public void setRental(Rental rental) {
         this.rental = rental;
     }
-
     public double getAmount() {
         return amount;
     }
-
     public void setAmount(double amount) {
         this.amount = amount;
     }
-
     public double getTotalPayment() {
         return totalPayment;
     }
-
     public void setTotalPayment(double totalPayment) {
         this.totalPayment = totalPayment;
     }
-
     public double getDiscount() {
         return discount;
     }
-
     public void setDiscount(double discount) {
         this.discount = discount;
     }
-
     public double getDiscountProm() {
         return discountProm;
     }
-
     public void setDiscountProm(double discountProm) {
         this.discountProm = discountProm;
     }
-
     private void calculateDistance() {
         distance = initialPrice * getDistancePrice();
     }
@@ -84,7 +70,6 @@ public class Bill  {
             discount = initialPrice * parameters.getDiscount()/100;
         }
     }
-
     private void calculateDiscountProm()
     {
         Parameters parameters = Parameters.getInstance();
@@ -93,7 +78,6 @@ public class Bill  {
             discountProm = initialPrice * parameters.getDiscountProm()/100;
         }
     }
-
     private void calculateInitialPrice()
     {
         if(rental.getVehicle().getMalfunction()==null)
@@ -118,7 +102,6 @@ public class Bill  {
             ex.printStackTrace();
         }
     }
-
     private void calculateTotalPayment()
     {
         totalPayment = amount - discount - discountProm;
@@ -165,7 +148,6 @@ public class Bill  {
         if (!folderExists) {
             folderExists = destinationFolder.mkdir();
         }
-
         if (folderExists) {
             try {
                 PrintWriter pw = new PrintWriter(new File(BILL_STORE_PATH + File.separator + ID + "_" + rental.getUser().getName() + "_" + formattedDate + ".txt"));

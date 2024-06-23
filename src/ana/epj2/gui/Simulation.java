@@ -4,7 +4,6 @@ import ana.epj2.model.*;
 import ana.epj2.util.BillsCreator;
 import ana.epj2.util.DataLoader;
 import ana.epj2.util.SerializationUtil;
-
 import java.awt.*;
 import java.io.File;
 import java.time.LocalDate;

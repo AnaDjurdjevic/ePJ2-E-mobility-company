@@ -1,7 +1,6 @@
 package ana.epj2.util;
 
 import ana.epj2.gui.Simulation;
-
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -29,7 +28,6 @@ public class Parameters {
         }
         return instance;
     }
-
     private void loadParameters() {
         Properties appProps = new Properties();
         try {
@@ -48,55 +46,42 @@ public class Parameters {
     public double getCarUnitPrice() {
         return carUnitPrice;
     }
-
     public void setCarUnitPrice(double carUnitPrice) {
         this.carUnitPrice = carUnitPrice;
     }
-
     public double getBikeUnitPrice() {
         return bikeUnitPrice;
     }
-
     public void setBikeUnitPrice(double bikeUnitPrice) {
         this.bikeUnitPrice = bikeUnitPrice;
     }
-
     public double getScooterUnitPrice() {
         return scooterUnitPrice;
     }
-
     public void setScooterUnitPrice(double scooterUnitPrice) {
         this.scooterUnitPrice = scooterUnitPrice;
     }
-
     public double getDistanceNarrow() {
         return distanceNarrow;
     }
-
     public void setDistanceNarrow(double distanceNarrow) {
         this.distanceNarrow = distanceNarrow;
     }
-
     public double getDistanceWide() {
         return distanceWide;
     }
-
     public void setDistanceWide(double distanceWide) {
         this.distanceWide = distanceWide;
     }
-
     public double getDiscount() {
         return discount;
     }
-
     public void setDiscount(double discount) {
         this.discount = discount;
     }
-
     public double getDiscountProm() {
         return discountProm;
     }
-
     public void setDiscountProm(double discountProm) {
         this.discountProm = discountProm;
     }

@@ -3,8 +3,6 @@ package ana.epj2.util;
 import ana.epj2.gui.Simulation;
 import ana.epj2.model.Bill;
 import ana.epj2.model.Rental;
-
-import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -32,14 +30,12 @@ public class BillsCreator {
         }
         return currentX;
     }
-
     private static void moveVertically(int currentX, int currentY,Rental rental) {
         while (currentY != rental.getEndLocation().getY()) {
             currentY += (rental.getEndLocation().getY() - rental.getStartLocation().getY()) / Math.abs(rental.getEndLocation().getY() - rental.getStartLocation().getY());
             rental.checkWiderPart(currentX, currentY);
         }
     }
-
     public static void addBills() {
         checkRentalsArea();
         for (Map.Entry<LocalDateTime, List<Rental>> entry : Simulation.blockOfRentals.entrySet()) {

@@ -59,7 +59,6 @@ public class MainMenu extends JFrame {
             this.contentPane.setLayout(new BorderLayout(0, 0));
             setContentPane(this.contentPane);
         }
-
         private JMenuBar getMenuBar_1() {
             if (menuBar == null) {
                 menuBar = new JMenuBar();
@@ -71,7 +70,6 @@ public class MainMenu extends JFrame {
             }
             return menuBar;
         }
-
         private JMenu getMnApplication() {
             if (mnApplication == null) {
                     mnApplication = new JMenu("Application");
@@ -80,7 +78,6 @@ public class MainMenu extends JFrame {
             }
             return mnApplication;
         }
-
         private JMenuItem getMntmExit() {
             if (mntmExit == null) {
                     mntmExit = new JMenuItem("Exit");
@@ -110,7 +107,6 @@ public class MainMenu extends JFrame {
             }
             return mnVehicles;
         }
-
         private JMenuItem getMntmCars() {
             if (mntmCars == null) {
                 mntmCars = new JMenuItem("Cars...");
@@ -147,8 +143,6 @@ public class MainMenu extends JFrame {
                 }
                 return mntmBicycles;
         }
-
-
         private JMenu getMnMalfunctions() {
             if (mnMalfunctions == null) {
                     mnMalfunctions = new JMenu("Malfunctions");
@@ -157,7 +151,6 @@ public class MainMenu extends JFrame {
             }
             return mnMalfunctions;
         }
-
         private JMenuItem getMntmMalfunctions() {
             if (mntmMalfunctions == null) {
                     mntmMalfunctions = new JMenuItem("Malfunctions");
@@ -170,7 +163,6 @@ public class MainMenu extends JFrame {
             }
             return mntmMalfunctions;
         }
-
         private JMenu getMnBusinessResults() {
             if (mnBusinessResults == null) {
                     mnBusinessResults = new JMenu("Business Results");
@@ -179,7 +171,6 @@ public class MainMenu extends JFrame {
             }
             return mnBusinessResults;
         }
-
         private JMenuItem getMntmBusinessResults() {
             if (mntmBusinessResults == null) {
                     mntmBusinessResults = new JMenuItem(
@@ -193,7 +184,6 @@ public class MainMenu extends JFrame {
             }
             return mntmBusinessResults;
         }
-
         private JMenu getmnRepairCosts() {
                 if (mnRepairCosts == null) {
                         mnRepairCosts = new JMenu("Repair Costs");
@@ -202,7 +192,6 @@ public class MainMenu extends JFrame {
                 }
                 return mnRepairCosts;
         }
-
         private JMenuItem getmntmRepairCosts() {
                 if (mntmRepairCosts == null) {
                         mntmRepairCosts = new JMenuItem(
@@ -216,5 +205,4 @@ public class MainMenu extends JFrame {
                 }
                 return mntmRepairCosts;
         }
-
 }

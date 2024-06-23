@@ -31,7 +31,6 @@ public class CarsFrame extends JFrame {
         data = UtilitiesGui.convertMapToVector(Simulation.vehicles, Car.class);
         initialize();
     }
-
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
