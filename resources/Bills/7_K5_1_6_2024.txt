@@ -1,0 +1,34 @@
+======================================
+            RENTAL BILL               
+======================================
+Bill ID: 7
+Rental Date: 2024-06-01T10:00
+---------------------------------------------------------------
+User Information
+======================================
+User: K5
+Personal ID: 767334422
+Driver's License: 925017736
+---------------------------------------------------------------
+Vehicle Information
+======================================
+Vehicle ID: B4
+Vehicle Malfunction Reason: malfunction65
+Vehicle Malfunction Date And Time: 2024-06-01T10:00
+---------------------------------------------------------------
+Rental Details
+======================================
+Start Location: [7,9]
+End Location: [7,11]
+Duration: 15 seconds
+---------------------------------------------------------------
+Price Details
+======================================
+Initial Price: 0.0
+Distance Price: 0.0
+Discount: 0.0
+Promotion Discount: 0.0
+Total Amount: 0.0
+Total Payment: 0.0
+======================================
+

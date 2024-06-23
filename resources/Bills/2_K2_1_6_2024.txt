@@ -1,0 +1,34 @@
+======================================
+            RENTAL BILL               
+======================================
+Bill ID: 2
+Rental Date: 2024-06-01T09:00
+---------------------------------------------------------------
+User Information
+======================================
+User: K2
+Personal ID: 362107732
+Driver's License: 029926119
+---------------------------------------------------------------
+Vehicle Information
+======================================
+Vehicle ID: B1
+Vehicle Malfunction Reason: malfunction40
+Vehicle Malfunction Date And Time: 2024-06-01T09:00
+---------------------------------------------------------------
+Rental Details
+======================================
+Start Location: [2,1]
+End Location: [7,13]
+Duration: 24 seconds
+---------------------------------------------------------------
+Price Details
+======================================
+Initial Price: 0.0
+Distance Price: 0.0
+Discount: 0.0
+Promotion Discount: 0.0
+Total Amount: 0.0
+Total Payment: 0.0
+======================================
+

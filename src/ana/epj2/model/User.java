@@ -1,7 +1,9 @@
 package ana.epj2.model;
 
 import java.util.Random;
-
+/**
+ * Represents a user in the e-mobility system.
+ */
 public class User {
 
     private String name;
@@ -9,6 +11,11 @@ public class User {
     private String driversLicense;
     private String passport;
 
+    /**
+     * Constructs a new User with the specified details.
+     *
+     * @param name the name of the user
+     */
     public User(String name)
     {
         this.name = name;
@@ -16,6 +23,12 @@ public class User {
         driversLicense = generateDocumentation(9);
         passport = generateDocumentation(9);
     }
+    /**
+     * Generates a string of random digits with the specified length.
+     *
+     * @param num the number of random digits to generate
+     * @return a string containing {@code num} random digits
+     */
     private String generateDocumentation(int num)
     {
         Random random = new Random();

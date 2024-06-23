@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+/**
+ * Represents a generic vehicle in the e-mobility system.
+ */
 public abstract class Vehicle implements Serializable {
     protected String ID;
     protected String manufacturer;
@@ -17,6 +20,16 @@ public abstract class Vehicle implements Serializable {
     protected boolean emptyBattery = false;
     protected double repairCoefficient;
 
+    /**
+     * Constructs a new Vehicle with the specified details.
+     *
+     * @param ID the unique identifier for the vehicle
+     * @param manufacturer the manufacturer of the vehicle
+     * @param model the model of the vehicle
+     * @param purchasePrice the purchase price of the vehicle
+     * @param morePassengers indicates if the vehicle can carry more passengers
+     * @param malfunction the malfunction details of the vehicle, if any
+     */
     public Vehicle(String ID, String manufacturer, String model,
                    double purchasePrice, boolean morePassengers,Malfunction malfunction)
     {
