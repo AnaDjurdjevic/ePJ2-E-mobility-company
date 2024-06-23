@@ -1,33 +1,34 @@
 ======================================
             RENTAL BILL               
 ======================================
-Bill ID: 5
+Bill ID: 2
 Rental Date: 2024-06-02T09:40
---------------------------------------
+---------------------------------------------------------------
 User Information
 ======================================
 User: K1
-Personal ID: 815789205
-Driver's License: 066801625
---------------------------------------
+Personal ID: 910260743
+Driver's License: 956243314
+---------------------------------------------------------------
 Vehicle Information
 ======================================
 Vehicle ID: A1
-Vehicle Type: 
---------------------------------------
+Vehicle Malfunction Reason: malfunction70
+Vehicle Malfunction Date And Time: 2024-06-02T09:40
+---------------------------------------------------------------
 Rental Details
 ======================================
 Start Location: [8,8]
 End Location: [11,11]
 Duration: 10 seconds
---------------------------------------
+---------------------------------------------------------------
 Price Details
 ======================================
-Initial Price: 12.0
-Distance Price: 60.0
+Initial Price: 0.0
+Distance Price: 0.0
 Discount: 0.0
-Promotion Discount: 4.8
-Total Amount: 60.0
-Total Payment: 55.2
+Promotion Discount: 0.0
+Total Amount: 0.0
+Total Payment: 0.0
 ======================================
 

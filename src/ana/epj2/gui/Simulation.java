@@ -3,6 +3,7 @@ package ana.epj2.gui;
 import ana.epj2.model.*;
 import ana.epj2.util.BillsCreator;
 import ana.epj2.util.DataLoader;
+import ana.epj2.util.SerializationUtil;
 
 import java.awt.*;
 import java.io.File;
@@ -58,12 +59,6 @@ public class Simulation {
         VehicleMovementGUI gui = new VehicleMovementGUI();
         DataLoader.loadRentals(gui);
         BillsCreator.addBills();
-        for (Map.Entry<LocalDate, List<Bill>> entry : BillsCreator.bills.entrySet()) {
-            List<Bill> billList = entry.getValue();
-            for (Bill bill : billList) {
-                System.out.println(bill);
-            }
-        }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -74,6 +69,10 @@ public class Simulation {
                 }
             }
         });
+        SerializationUtil.serializeBrokenVehicles();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            SerializationUtil.serializeBrokenVehicles();
+        }));
         simulateMovement(gui);
     }
 }

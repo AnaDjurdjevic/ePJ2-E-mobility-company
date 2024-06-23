@@ -7,13 +7,13 @@ Rental Date: 2024-06-01T09:00
 User Information
 ======================================
 User: K1
-Personal ID: 153518606
-Driver's License: 660747979
+Personal ID: 294265432
+Driver's License: 848597406
 ---------------------------------------------------------------
 Vehicle Information
 ======================================
 Vehicle ID: T1
-Vehicle Malfunction Reason: malfunction80
+Vehicle Malfunction Reason: malfunction34
 Vehicle Malfunction Date And Time: 2024-06-01T09:00
 ---------------------------------------------------------------
 Rental Details

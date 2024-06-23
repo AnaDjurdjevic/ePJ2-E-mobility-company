@@ -1,10 +1,11 @@
 package ana.epj2.model;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Serializable {
     protected String ID;
     protected String manufacturer;
     protected String model;
