@@ -4,6 +4,12 @@ import ana.epj2.gui.VehicleMovementGUI;
 import javax.swing.*;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a vehicle rental.
+ * This class handles the rental details including the user, vehicle,
+ * start and end locations, duration, discounts and promotions.
+ * It also manages the vehicle's movement and updates the GUI accordingly.
+ */
 public class Rental extends Thread{
     private static int numOfRentals;
     private LocalDateTime dateAndTime;
@@ -16,7 +22,18 @@ public class Rental extends Thread{
     private boolean hasDiscount = false;
     protected boolean wasInTheWiderPart;
     private VehicleMovementGUI vMGui;
-
+    /**
+     * Constructs a new Rental with the specified details.
+     *
+     * @param dateAndTime the date and time of the rental
+     * @param user the user who rented the vehicle
+     * @param vehicle the vehicle that is rented
+     * @param startLocation the starting location of the rental
+     * @param endLocation the ending location of the rental
+     * @param duration the duration of the rental in seconds
+     * @param hasPromotion whether the rental has a promotion
+     * @param vMGui the GUI to update with vehicle movement
+     */
     public Rental(LocalDateTime dateAndTime, User user, Vehicle vehicle,
                   Location startLocation, Location endLocation, int duration,
                   boolean hasPromotion, VehicleMovementGUI vMGui)
@@ -104,10 +121,23 @@ public class Rental extends Thread{
     public void setWasInTheWiderPart(boolean wasInTheWiderPart) {
         this.wasInTheWiderPart = wasInTheWiderPart;
     }
+    /**
+     * Checks if the given coordinates are within the wider part of the area.
+     *
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     * @return true if the coordinates are in the wider part, false otherwise
+     */
     private boolean isLocationInWider(int x, int y)
     {
         return !(x >= 5 && x <= 14 && y >= 5 && y <= 14);
     }
+    /**
+     * Runs the rental simulation, moving the vehicle from the start location to the end location.
+     * Updates the GUI with the vehicle's position at each step.
+     * If the vehicle's battery is empty at the start, it will be charged to 100%.
+     * If the vehicle has a malfunction, it will be displayed at the start location for 3 seconds before being removed.
+     */
     @Override
     public void run() {
         if(vehicle.emptyBattery == true)
@@ -139,6 +169,15 @@ public class Rental extends Thread{
             sleepForDuration(stepDuration);
         }
     }
+    /**
+     * Moves the vehicle horizontally towards the end location, updating the GUI at each step.
+     * Discharges the vehicle's battery and stops if the battery becomes empty.
+     *
+     * @param currentX the current x-coordinate of the vehicle
+     * @param currentY the current y-coordinate of the vehicle
+     * @param stepDuration the duration of each step in seconds
+     * @return the updated x-coordinate of the vehicle
+     */
     private synchronized int moveHorizontally(int currentX, int currentY, int stepDuration) {
         while (currentX != endLocation.getX()) {
             int prevX = currentX;
@@ -157,6 +196,14 @@ public class Rental extends Thread{
         }
         return currentX;
     }
+    /**
+     * Moves the vehicle vertically towards the end location, updating the GUI at each step.
+     * Discharges the vehicle's battery and stops if the battery becomes empty.
+     *
+     * @param currentX the current x-coordinate of the vehicle
+     * @param currentY the current y-coordinate of the vehicle
+     * @param stepDuration the duration of each step in seconds
+     */
     private synchronized void moveVertically(int currentX, int currentY, int stepDuration) {
         while (currentY != endLocation.getY()) {
             int prevY = currentY;
@@ -175,11 +222,23 @@ public class Rental extends Thread{
             sleepForDuration(stepDuration);
         }
     }
+    /**
+     * Checks if the current location (x, y) is in the wider part of the map.
+     * If it is, sets the `wasInTheWiderPart` flag to true.
+     *
+     * @param x the x-coordinate of the current location
+     * @param y the y-coordinate of the current location
+     */
     public void checkWiderPart(int x, int y) {
         if (!wasInTheWiderPart && isLocationInWider(x, y)) {
             wasInTheWiderPart = true;
         }
     }
+    /**
+     * Puts the current thread to sleep for the specified duration.
+     *
+     * @param stepDuration the duration to sleep in seconds
+     */
     private void sleepForDuration(int stepDuration) {
         try {
             sleep(stepDuration * 1000);
@@ -187,6 +246,13 @@ public class Rental extends Thread{
             e.printStackTrace();
         }
     }
+    /**
+     * Checks if this Rental object is equal to the specified object.
+     * Two Rental objects are considered equal if their date and time, and vehicle are equal.
+     *
+     * @param obj the object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -202,6 +268,10 @@ public class Rental extends Thread{
         }
         return true;
     }
+    /**
+     * Returns a string representation of the object.
+     * @return a string representation of the object
+     */
     @Override
     public String toString()
     {

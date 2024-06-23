@@ -6,6 +6,9 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * Represents a bill for a rental in the e-mobility system.
+ */
 public class Bill  {
     private static int id = 0;
     private int ID;
@@ -17,6 +20,11 @@ public class Bill  {
     private double distance;
     private double initialPrice;
 
+    /**
+     * Constructs a new Bill for the specified rental.
+     *
+     * @param rental the rental associated with this bill
+     */
     public Bill(Rental rental)
     {
         ID = id++;
@@ -59,9 +67,18 @@ public class Bill  {
     public void setDiscountProm(double discountProm) {
         this.discountProm = discountProm;
     }
+    /**
+     * Calculates the distance cost for the rental based on the initial price
+     * and distance price. The result is stored in the {@code distance} field.
+     */
     private void calculateDistance() {
         distance = initialPrice * getDistancePrice();
     }
+    /**
+     * Calculates the discount for the rental if applicable.
+     * The discount is calculated based on the initial price and the discount
+     * percentage from the parameters. The result is stored in the {@code discount} field.
+     */
     private void calculateDiscount()
     {
         Parameters parameters = Parameters.getInstance();
@@ -70,6 +87,11 @@ public class Bill  {
             discount = initialPrice * parameters.getDiscount()/100;
         }
     }
+    /**
+     * Calculates the promotion discount for the rental if applicable.
+     * The promotion discount is calculated based on the initial price and the promotion
+     * discount percentage from the parameters. The result is stored in the {@code discountProm} field.
+     */
     private void calculateDiscountProm()
     {
         Parameters parameters = Parameters.getInstance();
@@ -78,6 +100,11 @@ public class Bill  {
             discountProm = initialPrice * parameters.getDiscountProm()/100;
         }
     }
+    /**
+     * Calculates the initial price for the rental based on the duration and unit price.
+     * If the vehicle has a malfunction, the initial price is set to 0.0.
+     * The result is stored in the {@code initialPrice} field.
+     */
     private void calculateInitialPrice()
     {
         if(rental.getVehicle().getMalfunction()==null)
@@ -92,6 +119,10 @@ public class Bill  {
             initialPrice = 0.0;
         }
     }
+    /**
+     * Calculates the total amount for the rental based on the distance cost.
+     * The result is stored in the {@code amount} field.
+     */
     private void calculateAmount()
     {
         try {
@@ -102,10 +133,20 @@ public class Bill  {
             ex.printStackTrace();
         }
     }
+    /**
+     * Calculates the total payment for the rental by subtracting discounts
+     * from the amount. The result is stored in the {@code totalPayment} field.
+     */
     private void calculateTotalPayment()
     {
         totalPayment = amount - discount - discountProm;
     }
+    /**
+     * Returns the unit price for the vehicle based on its type.
+     *
+     * @return the unit price for the vehicle
+     * @throws IllegalArgumentException if the vehicle type is unknown
+     */
     private double getUnitPrice() throws IllegalArgumentException
     {
         double unitPrice;
@@ -121,6 +162,12 @@ public class Bill  {
         }
         return unitPrice;
     }
+    /**
+     * Returns the distance price for the rental based on whether the vehicle
+     * was used in the wider part of the area or the narrower part.
+     *
+     * @return the distance price for the rental
+     */
     private double getDistancePrice()
     {
         double distancePrice;
@@ -132,6 +179,13 @@ public class Bill  {
         }
         return distancePrice;
     }
+    /**
+     * Creates a text file for the bill, containing all details related to the rental
+     * and the total payment amount. It also includes discounts or promotions if applicable.
+     * The file is saved in a directory specified in the application properties file.
+     *
+     * @return {@code true} if the bill file is created successfully, {@code false} otherwise
+     */
     public boolean createBillFile() {
         Properties appProps = new Properties();
         try {
@@ -160,7 +214,13 @@ public class Bill  {
         }
         return false;
     }
-
+    /**
+     * Formats the bill details into a structured string for printing.
+     * This includes rental details, user information, vehicle information,
+     * and price details, along with applicable discounts or promotions.
+     *
+     * @return a formatted string representing the bill details
+     */
     private String formatBill() {
         StringBuilder sb = new StringBuilder();
         sb.append("======================================\n");
@@ -200,10 +260,23 @@ public class Bill  {
         sb.append("======================================\n");
         return sb.toString();
     }
+    /**
+     * Prints the bill by creating a text file with the formatted bill details.
+     * If the bill creation fails, it prints an error message to the console.
+     */
     public void printBill()
     {
-        createBillFile();
+        boolean success = createBillFile();
+        if (!success) {
+            System.err.println("Failed to create bill file for rental ID: " + rental.getVehicle().getID());
+        }
     }
+    /**
+     * Calculates and returns the repair cost for the vehicle if it has a malfunction.
+     * The repair cost is calculated based on the repair coefficient and the purchase price of the vehicle.
+     *
+     * @return the repair cost for the vehicle, or 0.0 if the vehicle has no malfunction
+     */
     public double getRepairCost() {
         double repairCost = 0.0;
         if (rental.getVehicle().getMalfunction() != null) {
@@ -211,6 +284,10 @@ public class Bill  {
         }
         return repairCost;
     }
+    /**
+     * Returns a string representation of the object.
+     * @return a string representation of the object
+     */
     @Override
     public String toString()
     {

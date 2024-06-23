@@ -115,6 +115,13 @@ public abstract class Vehicle implements Serializable {
     public void setRepairCoefficient(double repairCoefficient) {
         this.repairCoefficient = repairCoefficient;
     }
+    /**
+     * Charges the battery of the vehicle by the specified amount.
+     * If the resulting battery level exceeds 100%, it is capped at 100%.
+     * Also sets the emptyBattery flag to false.
+     *
+     * @param amount the amount to charge the battery
+     */
     public void chargeBattery(int amount)
     {
         this.currentBatteryLevel += amount;
@@ -123,6 +130,13 @@ public abstract class Vehicle implements Serializable {
         }
         emptyBattery = false;
     }
+    /**
+     * Discharges the battery of the vehicle by the specified amount.
+     * If the resulting battery level falls below 10%, it is set to 10%
+     * and the emptyBattery flag is set to true.
+     *
+     * @param amount the amount to discharge the battery
+     */
     public void dischargeBattery(int amount)
     {
         this.currentBatteryLevel -= amount;
@@ -132,15 +146,24 @@ public abstract class Vehicle implements Serializable {
             emptyBattery = true;
         }
     }
-    public void malfunctionHappened(String reason, LocalDateTime dateAndTime)
-    {
-        this.malfunction = new Malfunction(reason, dateAndTime);
-
-    }
+    /**
+     * Repairs the vehicle by setting the malfunction attribute to null.
+     * This indicates that the vehicle no longer has a malfunction.
+     */
     public void repair()
     {
         this.malfunction = null;
     }
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * * This method compares the following fields:
+     *  * <ul>
+     *  *   <li>{@code ID} - the unique identifier of the vehicle</li>
+     *  * </ul>
+     *  *
+     * @param obj the reference object with which to compare
+     * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -158,12 +181,16 @@ public abstract class Vehicle implements Serializable {
         }
         return true;
     }
+    /**
+     * Returns a string representation of the object.
+     * @return a string representation of the object
+     */
     @Override
     public String toString()
     {
         return "[ID=" + ID +
                 ", manufacturer=" + manufacturer +
-                ", ana.epj2.model=" + model +
+                ", model=" + model +
                 ", purchase price=" + purchasePrice +
                 ", malfunction=" + malfunction;
     }
