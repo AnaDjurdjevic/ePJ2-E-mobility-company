@@ -6,7 +6,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
 import ana.epj2.util.UtilitiesGui;
-
+/**
+ * MalfunctionsFrame is a frame that displays information about vehicle malfunctions in a table.
+ * The table includes columns for Vehicle type, ID, Date and time, and Malfunction description.
+ */
 public class MalfunctionsFrame extends JFrame {
 
     private Vector<Object> columns;
@@ -16,7 +19,8 @@ public class MalfunctionsFrame extends JFrame {
     private JTable table;
 
     /**
-     * Create the frame.
+     * Creates a new MalfunctionsFrame.
+     * Initializes the table with columns and data for vehicle malfunctions.
      */
     public MalfunctionsFrame() {
         columns = new Vector<Object>();
@@ -28,7 +32,9 @@ public class MalfunctionsFrame extends JFrame {
         data = UtilitiesGui.getMalfunctions(Simulation.vehicles);
         initialize();
     }
-
+    /**
+     * Initializes the frame and its components.
+     */
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
@@ -39,6 +45,11 @@ public class MalfunctionsFrame extends JFrame {
         setContentPane(this.contentPane);
         this.contentPane.add(getScrollPane(), BorderLayout.CENTER);
     }
+    /**
+     * Returns the scroll pane containing the table.
+     *
+     * @return the scroll pane
+     */
     private JScrollPane getScrollPane() {
         if (scrollPane == null) {
             scrollPane = new JScrollPane();
@@ -47,7 +58,11 @@ public class MalfunctionsFrame extends JFrame {
         }
         return scrollPane;
     }
-
+    /**
+     * Returns the table displaying vehicle malfunction data.
+     *
+     * @return the table
+     */
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {

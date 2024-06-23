@@ -7,7 +7,12 @@ import java.awt.*;
 import java.util.Vector;
 import ana.epj2.util.BillsCreator;
 import ana.epj2.util.UtilitiesGui;
-
+/**
+ * BusinessResultsFrame is a frame that displays business results in a table.
+ * The table includes columns for Date, Total income, Total discount, Total promotions,
+ * Total maintenance, Total repairs, Total income - wide area, Total income - narrow area,
+ * Total company costs, and Total tax.
+ */
 public class BusinessResultsFrame extends JFrame {
 
     private Vector<Object> columns;
@@ -17,7 +22,8 @@ public class BusinessResultsFrame extends JFrame {
     private JTable table;
 
     /**
-     * Create the frame.
+     * Creates a new BusinessResultsFrame.
+     * Initializes the table with columns and data for business results.
      */
     public BusinessResultsFrame() {
         columns = new Vector<Object>();
@@ -35,7 +41,9 @@ public class BusinessResultsFrame extends JFrame {
         data = UtilitiesGui.getBusinessResults(BillsCreator.bills);
         initialize();
     }
-
+    /**
+     * Initializes the frame and its components.
+     */
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
@@ -47,6 +55,11 @@ public class BusinessResultsFrame extends JFrame {
         setContentPane(this.contentPane);
         this.contentPane.add(getScrollPane(), BorderLayout.CENTER);
     }
+    /**
+     * Returns the scroll pane containing the table.
+     *
+     * @return the scroll pane
+     */
     private JScrollPane getScrollPane() {
         if (scrollPane == null) {
             scrollPane = new JScrollPane();
@@ -55,6 +68,11 @@ public class BusinessResultsFrame extends JFrame {
         }
         return scrollPane;
     }
+    /**
+     * Returns the table displaying business results data.
+     *
+     * @return the table
+     */
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {

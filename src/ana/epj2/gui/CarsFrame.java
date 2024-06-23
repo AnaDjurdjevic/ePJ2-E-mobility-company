@@ -7,7 +7,10 @@ import java.awt.*;
 import java.util.Vector;
 import ana.epj2.model.Car;
 import ana.epj2.util.UtilitiesGui;
-
+/**
+ * CarsFrame is a frame that displays information about cars in a table.
+ * The table includes columns for ID, Manufacturer, Model, Purchase price, Purchase date, and Description.
+ */
 public class CarsFrame extends JFrame {
 
     private Vector<Object> columns;
@@ -17,7 +20,8 @@ public class CarsFrame extends JFrame {
     private JTable table;
 
     /**
-     * Create the frame.
+     * Creates a new CarsFrame.
+     * Initializes the table with columns and data for cars.
      */
     public CarsFrame() {
         columns = new Vector<Object>();
@@ -31,6 +35,9 @@ public class CarsFrame extends JFrame {
         data = UtilitiesGui.convertMapToVector(Simulation.vehicles, Car.class);
         initialize();
     }
+    /**
+     * Initializes the frame and its components.
+     */
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
@@ -41,6 +48,11 @@ public class CarsFrame extends JFrame {
         setContentPane(this.contentPane);
         this.contentPane.add(getScrollPane(), BorderLayout.CENTER);
     }
+    /**
+     * Returns the scroll pane containing the table.
+     *
+     * @return the scroll pane
+     */
     private JScrollPane getScrollPane() {
         if (scrollPane == null) {
             scrollPane = new JScrollPane();
@@ -49,7 +61,11 @@ public class CarsFrame extends JFrame {
         }
         return scrollPane;
     }
-
+    /**
+     * Returns the table displaying car data.
+     *
+     * @return the table
+     */
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {

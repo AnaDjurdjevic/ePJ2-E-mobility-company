@@ -7,7 +7,10 @@ import java.awt.*;
 import java.util.Vector;
 import ana.epj2.model.Scooter;
 import ana.epj2.util.UtilitiesGui;
-
+/**
+ * BicyclesFrame is a frame that displays information about bicycles in a table.
+ * The table includes columns for ID, Manufacturer, Model, Purchase price, and Autonomy.
+ */
 public class BicyclesFrame extends JFrame {
 
     private Vector<Object> columns;
@@ -17,7 +20,8 @@ public class BicyclesFrame extends JFrame {
     private JTable table;
 
     /**
-     * Create the frame.
+     * Creates a new BicyclesFrame.
+     * Initializes the table with columns and data for bicycles.
      */
     public BicyclesFrame() {
         columns = new Vector<Object>();
@@ -30,7 +34,9 @@ public class BicyclesFrame extends JFrame {
         data = UtilitiesGui.convertMapToVector(Simulation.vehicles, Scooter.class);
         initialize();
     }
-
+    /**
+     * Initializes the frame and its components.
+     */
     private void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 815, 420);
@@ -41,6 +47,11 @@ public class BicyclesFrame extends JFrame {
         setContentPane(this.contentPane);
         this.contentPane.add(getScrollPane(), BorderLayout.CENTER);
     }
+    /**
+     * Returns the scroll pane containing the table.
+     *
+     * @return the scroll pane
+     */
     private JScrollPane getScrollPane() {
         if (scrollPane == null) {
             scrollPane = new JScrollPane();
@@ -49,7 +60,11 @@ public class BicyclesFrame extends JFrame {
         }
         return scrollPane;
     }
-
+    /**
+     * Returns the table displaying bicycle data.
+     *
+     * @return the table
+     */
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {

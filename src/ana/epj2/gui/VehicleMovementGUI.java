@@ -4,13 +4,17 @@ import ana.epj2.model.Vehicle;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-
+/**
+ * VehicleMovementGUI is a graphical user interface for displaying the movement of vehicles on a grid.
+ */
 public class VehicleMovementGUI extends JFrame {
 
     private static final int GRID_SIZE = 20;
     private JPanel[][] gridPanels;
     private Map<Point, Set<Vehicle>> vehiclePositions;
-
+    /**
+     * Constructs a new VehicleMovementGUI.
+     */
     public VehicleMovementGUI() {
         setTitle("ePJ2");
         setBounds(100, 100, 815, 420);
@@ -24,7 +28,9 @@ public class VehicleMovementGUI extends JFrame {
 
         setVisible(true);
     }
-
+    /**
+     * Initializes the grid with panels and sets the background color for the inner area.
+     */
     private void initializeGrid() {
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
@@ -39,7 +45,9 @@ public class VehicleMovementGUI extends JFrame {
             }
         }
     }
-
+    /**
+     * Resets the grid to its initial state, clearing all vehicles and resetting colors.
+     */
     public synchronized void resetGrid() {
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
@@ -55,7 +63,15 @@ public class VehicleMovementGUI extends JFrame {
         }
         vehiclePositions.clear();
     }
-
+    /**
+     * Updates the grid to move a vehicle from one position to another.
+     *
+     * @param prevX    the previous X position of the vehicle
+     * @param prevY    the previous Y position of the vehicle
+     * @param x        the new X position of the vehicle
+     * @param y        the new Y position of the vehicle
+     * @param vehicle  the vehicle to move
+     */
     public synchronized void updateGrid(int prevX, int prevY, int x, int y, Vehicle vehicle) {
         SwingUtilities.invokeLater(() -> {
             if (prevX != -1 && prevY != -1) {
@@ -64,6 +80,13 @@ public class VehicleMovementGUI extends JFrame {
             addVehicleToGrid(x, y, vehicle);
         });
     }
+    /**
+     * Adds a vehicle to the grid at the specified position.
+     *
+     * @param x        the X position
+     * @param y        the Y position
+     * @param vehicle  the vehicle to add
+     */
     private synchronized void addVehicleToGrid(int x, int y, Vehicle vehicle) {
         Point point = new Point(x, y);
         vehiclePositions.computeIfAbsent(point, k -> new HashSet<>()).add(vehicle);
@@ -78,6 +101,13 @@ public class VehicleMovementGUI extends JFrame {
         panel.revalidate();
         panel.repaint();
     }
+    /**
+     * Removes a vehicle from the grid at the specified position.
+     *
+     * @param x        the X position
+     * @param y        the Y position
+     * @param vehicle  the vehicle to remove
+     */
     public synchronized void removeVehicleFromGrid(int x, int y, Vehicle vehicle) {
         Point point = new Point(x, y);
         Set<Vehicle> vehiclesAtPoint = vehiclePositions.get(point);

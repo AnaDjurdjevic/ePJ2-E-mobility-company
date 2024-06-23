@@ -13,7 +13,10 @@ import ana.epj2.model.Car;
 import ana.epj2.model.Scooter;
 import ana.epj2.model.Vehicle;
 import ana.epj2.util.SerializationUtil;
-
+/**
+ * RepairCostsFrame is a frame that displays the repair costs for broken vehicles in a table.
+ * The table includes columns for various attributes of the vehicles, including repair costs.
+ */
 public class RepairCostsFrame extends JFrame {
 
     private Vector<Object> columns;
@@ -23,7 +26,8 @@ public class RepairCostsFrame extends JFrame {
     private JButton loadButton;
 
     /**
-     * Create the frame.
+     * Creates a new RepairCostsFrame.
+     * Initializes the table with columns and sets up the frame layout.
      */
     public RepairCostsFrame() {
         columns = new Vector<Object>();
@@ -44,7 +48,10 @@ public class RepairCostsFrame extends JFrame {
         setTitle("Repair Costs");
         initialize();
     }
-
+    /**
+     * Initializes the frame and its components.
+     * Sets up the layout and adds the load button and table.
+     */
     private void initialize() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -67,6 +74,11 @@ public class RepairCostsFrame extends JFrame {
 
         setContentPane(panel);
     }
+    /**
+     * Returns the scroll pane containing the table.
+     *
+     * @return the scroll pane
+     */
     private JScrollPane getScrollPane() {
         if (scrollPane == null) {
             scrollPane = new JScrollPane();
@@ -75,6 +87,10 @@ public class RepairCostsFrame extends JFrame {
         }
         return scrollPane;
     }
+    /**
+     * Loads the broken vehicles from the serialized files and populates the table with their data.
+     * Calculates the repair cost for each vehicle.
+     */
     private void loadBrokenVehicles() {
         List<Vehicle> brokenVehicles = SerializationUtil.deserializeBrokenVehicles();
         data.clear();
@@ -115,6 +131,11 @@ public class RepairCostsFrame extends JFrame {
         table.revalidate();
         table.repaint();
     }
+    /**
+     * Returns the table displaying the repair costs data.
+     *
+     * @return the table
+     */
     private JTable getTable() {
         if (table == null) {
             table = new JTable(new DefaultTableModel(data, columns) {
