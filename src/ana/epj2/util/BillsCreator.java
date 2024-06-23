@@ -5,11 +5,12 @@ import ana.epj2.model.Bill;
 import ana.epj2.model.Rental;
 
 import javax.swing.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class BillsCreator {
-    public static Map<LocalDateTime,List<Bill>> bills = new TreeMap<>();
+    public static Map<LocalDate,List<Bill>> bills = new TreeMap<>();
 
     public static void checkRentalsArea()
     {
@@ -47,11 +48,11 @@ public class BillsCreator {
 
             for (Rental rental : rentalList) {
                 Bill bill = new Bill(rental);
-                addBillToMap(rentalDate, bill);
+                addBillToMap(rentalDate.toLocalDate(), bill);
             }
         }
     }
-    private static void addBillToMap(LocalDateTime rentalDate, Bill bill) {
+    private static void addBillToMap(LocalDate rentalDate, Bill bill) {
         if (!bills.containsKey(rentalDate)) {
             bills.put(rentalDate, new ArrayList<>());
         }

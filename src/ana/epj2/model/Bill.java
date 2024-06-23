@@ -58,6 +58,22 @@ public class Bill implements Serializable {
         this.totalPayment = totalPayment;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getDiscountProm() {
+        return discountProm;
+    }
+
+    public void setDiscountProm(double discountProm) {
+        this.discountProm = discountProm;
+    }
+
     private void calculateDistance() {
         distance = initialPrice * getDistancePrice();
     }

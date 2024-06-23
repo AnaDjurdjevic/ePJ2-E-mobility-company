@@ -6,6 +6,7 @@ import ana.epj2.util.DataLoader;
 
 import java.awt.*;
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
@@ -47,7 +48,7 @@ public class Simulation {
         VehicleMovementGUI gui = new VehicleMovementGUI();
         DataLoader.loadRentals(gui);
         BillsCreator.addBills();
-        for (Map.Entry<LocalDateTime, List<Bill>> entry : BillsCreator.bills.entrySet()) {
+        for (Map.Entry<LocalDate, List<Bill>> entry : BillsCreator.bills.entrySet()) {
             List<Bill> billList = entry.getValue();
             for (Bill bill : billList) {
                 System.out.println(bill);

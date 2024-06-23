@@ -2,6 +2,7 @@ package ana.epj2.util;
 
 import ana.epj2.model.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +54,27 @@ public class UtilitiesGui {
         return dataVector;
     }
 
-    public static Vector<Vector<Object>> getBussinesResults(Map<LocalDateTime, List<Bill>> bills) {
+    public static Vector<Vector<Object>> getBussinesResults(Map<LocalDate, List<Bill>> bills) {
         Vector<Vector<Object>> dataVector = new Vector<>();
+        for (Map.Entry<LocalDate, List<Bill>> entry : bills.entrySet()) {
+            LocalDate date = entry.getKey();
+            List<Bill> billList = entry.getValue();
+            double totalIncome = 0.0;
+            double totalDiscounts = 0.0;
+            double totalPromotions = 0.0;
+            for (Bill bill : billList) {
+                totalIncome += bill.getTotalPayment();
+                totalDiscounts += bill.getDiscount();
+                totalPromotions += bill.getDiscountProm();
+            }
+            Vector<Object> row = new Vector<>();
+            row.add(date);
+            row.add(totalIncome);
+            row.add(totalDiscounts);
+            row.add(totalPromotions);
+            // Dodajte ostale potrebne kolone ovde
+            dataVector.add(row);
+        }
         return dataVector;
     }
 }
