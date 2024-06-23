@@ -1,10 +1,9 @@
 package ana.epj2.util;
 
-import ana.epj2.model.Bicycle;
-import ana.epj2.model.Car;
-import ana.epj2.model.Scooter;
-import ana.epj2.model.Vehicle;
+import ana.epj2.model.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -51,6 +50,11 @@ public class UtilitiesGui {
             dataVector.add(malfunctionVector);
             }
         }
+        return dataVector;
+    }
+
+    public static Vector<Vector<Object>> getBussinesResults(Map<LocalDateTime, List<Bill>> bills) {
+        Vector<Vector<Object>> dataVector = new Vector<>();
         return dataVector;
     }
 }
