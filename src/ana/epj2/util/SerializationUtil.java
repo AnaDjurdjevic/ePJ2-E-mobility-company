@@ -2,15 +2,21 @@ package ana.epj2.util;
 
 import ana.epj2.gui.Simulation;
 import ana.epj2.model.Vehicle;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Map;
 
+/**
+ * Utility class for serializing and deserializing Vehicle objects.
+ */
 public class SerializationUtil {
 
+    /**
+     * Serializes the broken vehicles to a specified directory.
+     * The directory path is retrieved from the application properties.
+     */
     public static void serializeBrokenVehicles() {
         Properties appProps = new Properties();
         try {
@@ -35,6 +41,12 @@ public class SerializationUtil {
             }
         }
     }
+    /**
+     * Deserializes the broken vehicles from a specified directory.
+     * The directory path is retrieved from the application properties.
+     *
+     * @return a list of deserialized broken vehicles
+     */
     public static List<Vehicle> deserializeBrokenVehicles() {
         List<Vehicle> brokenVehicles = new ArrayList<>();
         Properties appProps = new Properties();

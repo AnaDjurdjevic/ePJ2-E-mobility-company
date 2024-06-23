@@ -6,7 +6,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+/**
+ * Utility class for GUI operations.
+ */
 public class UtilitiesGui {
+    /**
+     * Converts a map of vehicles to a Vector of Vectors of Objects, filtered by the specified vehicle type.
+     *
+     * @param vehicles the map of vehicles
+     * @param vehicleType the type of vehicle to filter by
+     * @return a Vector of Vectors of Objects representing the vehicles
+     */
     public static Vector<Vector<Object>> convertMapToVector(Map<String, Vehicle> vehicles, Class<? extends  Vehicle> vehicleType) {
         Vector<Vector<Object>> dataVector = new Vector<>();
 
@@ -35,6 +45,12 @@ public class UtilitiesGui {
         }
         return dataVector;
     }
+    /**
+     * Gets a list of malfunctions from the provided map of vehicles.
+     *
+     * @param vehicles the map of vehicles
+     * @return a Vector of Vectors of Objects representing the malfunctions
+     */
     public static Vector<Vector<Object>> getMalfunctions(Map<String, Vehicle> vehicles) {
         Vector<Vector<Object>> dataVector = new Vector<>();
         for (Map.Entry<String, Vehicle> entry : vehicles.entrySet()) {
@@ -50,6 +66,12 @@ public class UtilitiesGui {
         }
         return dataVector;
     }
+    /**
+     * Gets the business results in a format suitable for displaying in a JTable.
+     *
+     * @param bills the map of bills grouped by date
+     * @return the business results as a Vector of Vectors of Objects
+     */
     public static Vector<Vector<Object>> getBusinessResults(Map<LocalDate, List<Bill>> bills) {
         Vector<Vector<Object>> dataVector = new Vector<>();
         DecimalFormat formatter = new DecimalFormat("#.##");

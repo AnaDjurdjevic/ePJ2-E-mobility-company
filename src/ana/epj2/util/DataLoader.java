@@ -16,8 +16,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
-
+/**
+ * Utility class for loading vehicles and rentals data from CSV files.
+ */
 public class DataLoader {
+    /**
+     * Loads vehicles from the CSV file specified in the application properties.
+     * The loaded vehicles are added to the Simulation.vehicles map.
+     */
     public static void loadVehicles()
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy.");
@@ -75,6 +81,12 @@ public class DataLoader {
             e.printStackTrace();
         }
     }
+    /**
+     * Loads rentals from the CSV file specified in the application properties.
+     * The loaded rentals are added to the Simulation.rentals list and grouped by date and time in the Simulation.blockOfRentals map.
+     *
+     * @param vMGui the VehicleMovementGUI instance to associate with each Rental object
+     */
     public static void loadRentals(VehicleMovementGUI vMGui) {
         Random random = new Random();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:mm");
@@ -151,6 +163,12 @@ public class DataLoader {
             }
         }
     }
+    /**
+     * Splits a CSV line into an array of strings, taking into account quoted values that may contain commas.
+     *
+     * @param line the CSV line to split
+     * @return an array of strings representing the values in the CSV line
+     */
     private static String[] splitCSVLine(String line) {
         List<String> result = new ArrayList<>();
         StringBuilder current = new StringBuilder();
@@ -178,11 +196,26 @@ public class DataLoader {
 
         return result.toArray(new String[0]);
     }
+    /**
+     * Checks if the start and end locations are within the valid range (0 to 19).
+     *
+     * @param start the start location
+     * @param end   the end location
+     * @return true if both locations are within the valid range, false otherwise
+     */
     public static boolean checkLocations(Location start, Location end)
     {
         return isWithinRange(start.getX(),0,19) && isWithinRange(start.getY(),0,19)
                 && isWithinRange(end.getX(),0,19) && isWithinRange(end.getY(),0,19);
     }
+    /**
+     * Checks if a value is within the specified range.
+     *
+     * @param value the value to check
+     * @param min   the minimum value (inclusive)
+     * @param max   the maximum value (inclusive)
+     * @return true if the value is within the range, false otherwise
+     */
     public static boolean isWithinRange(int value, int min, int max)
     {
         return value <= max && value >= min;

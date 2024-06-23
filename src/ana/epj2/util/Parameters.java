@@ -3,7 +3,9 @@ package ana.epj2.util;
 import ana.epj2.gui.Simulation;
 import java.io.FileInputStream;
 import java.util.Properties;
-
+/**
+ * Singleton class that loads and provides access to application parameters.
+ */
 public class Parameters {
     private static Parameters instance;
     private double carUnitPrice;
@@ -13,11 +15,18 @@ public class Parameters {
     private double distanceWide;
     private double discount;
     private double discountProm;
-
+    /**
+     * Private constructor that loads parameters from the properties file.
+     */
     private Parameters()
     {
         loadParameters();
     }
+    /**
+     * Returns the singleton instance of the Parameters class.
+     *
+     * @return the singleton instance of Parameters
+     */
     public static Parameters getInstance() {
         if (instance == null) {
             synchronized (Parameters.class) {
@@ -28,6 +37,9 @@ public class Parameters {
         }
         return instance;
     }
+    /**
+     * Loads parameters from the application properties file.
+     */
     private void loadParameters() {
         Properties appProps = new Properties();
         try {
