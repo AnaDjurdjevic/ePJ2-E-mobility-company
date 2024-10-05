@@ -1,15 +1,15 @@
-<h4>Short description </h4>   
+<h2>Short description </h2>   
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the city of Java. 
 The goal of this application is to simulate the usage of these vehicles based on predefined data, 
 generate detailed financial reports, track vehicle status, and provide business statistics. 
 The system manages vehicle rentals, calculates costs based on time, distance, and other factors (like breakdowns or promotions),
 and displays real-time simulations of vehicle movements on a map.
 
-<h4>Project assignment text</h4>    
+<h2>Project assignment text</h2>    
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the narrow and wider areas of the city of Java. The goal of this project is to develop a program that simulates the usage of these vehicles based on predefined data, generates detailed financial reports, provides statistics, and tracks the status of all vehicles in use.
 The company manages a number of cars, with the following data stored: unique identifier (ID), purchase date, purchase price, manufacturer, model, description, and current battery level. For electric bicycles, the following data is stored: unique identifier (ID), manufacturer, model, purchase price, current battery level, and range per charge (autonomy). For electric scooters, the stored data includes: unique identifier (ID), manufacturer, model, current battery level, purchase price, and maximum speed. All vehicles can experience breakdowns, for which the reason (description), date, and time are recorded. All vehicles have battery charging capabilities (a method that increases the current level). Battery discharge occurs during movement, and cars have the capacity to transport multiple passengers.
 The core business of the company is vehicle rental. During the rental process, the date and time of the rental, the user's name, the current location where the vehicle was picked up, the location where the vehicle is returned after use, and the duration of use in seconds are recorded. For car rentals, an identification document (passport for foreign citizens and ID card for locals) and a driver's license (number) must be provided. Based on this information, a payment invoice is generated and delivered to the users as a txt file.
-The company defines rental prices for each type of vehicle based on the usage time in seconds. The total payment amount is calculated based on the duration of the ride and additional factors. These factors include the use of the vehicle in the wider city area, breakdowns, discounts, and promotions. The calculation method is given in a table, and all parameters are stored externally in properties files (https://www.baeldung.com/java-properties).
+The company defines rental prices for each type of vehicle based on the usage time in seconds. The total payment amount is calculated based on the duration of the ride and additional factors. These factors include the use of the vehicle in the wider city area, breakdowns, discounts, and promotions. The calculation method is given in a table, and all parameters are stored externally in properties files (https://www.baeldung.com/java-properties).    
     
 ![table](https://github.com/user-attachments/assets/d06ae13f-73b3-4e21-ad6b-9f23e0b91ece)
     
@@ -36,13 +36,13 @@ The business results should display all revenues (amounts from generated invoice
 6. Total repair costs (coefficient (cars 0.07, bicycles 0.04, scooters 0.02) * purchase price of the broken vehicle). This is calculated as the sum of all individual breakdowns.
 7. Total company costs (20% of total revenue), and
 8. Total tax (total revenue - total maintenance costs - total repair costs - company costs) * 10%.
-Daily reports display items 1-6 grouped by date. All available dates should be shown. This report is presented in a table format.
+Daily reports display items 1-6 grouped by date. All available dates should be shown. This report is presented in a table format.    
 Depending on the index number, one additional functionality from the following three must be implemented (e.g., 1234/24 => sum of digits is 1+2+3+4+2+4 = 16, (16%3 + 1)=2):
 1. Finding the vehicles that generated the most revenue for each type,
 2. Finding the vehicles that incurred the most losses for each type,
 3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
-<h4>The appearance of my application</h4>
+<h2>The appearance of my application</h2>
 ![Screenshot (324)](https://github.com/user-attachments/assets/a51f5f8f-ee16-46a2-9bf9-14a03f1c3a52)
 ![Screenshot (325)](https://github.com/user-attachments/assets/71d6abbc-a3f4-44bf-bd0a-5ee3bf144586)
 ![Screenshot (326)](https://github.com/user-attachments/assets/3aa20283-e908-4804-b363-8036f69a8d0f)
