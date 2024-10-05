@@ -43,11 +43,11 @@ Depending on the index number, one additional functionality from the following t
 3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
 <h2>The appearance of my application</h2>
-![map](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/map.png)
-![cars](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/cars.png)
-![scooters](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/scooters.png)
-![malfunctions](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/malfunctions.png)
-![businessResults](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/businessResults.png)
-![repairCosts](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/repairCosts.png)
-![billMalfunction](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/billMalfunction.png)
-![bill](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/bill.png)
+![map](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/map.png)    
+![cars](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/cars.png)    
+![scooters](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/scooters.png)    
+![malfunctions](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/malfunctions.png)    
+![businessResults](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/businessResults.png)    
+![repairCosts](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/repairCosts.png)    
+![billMalfunction](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/billMalfunction.png)    
+![bill](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/bill.png)    
