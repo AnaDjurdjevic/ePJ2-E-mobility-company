@@ -43,7 +43,7 @@ Depending on the index number, one additional functionality from the following t
 3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
 <h2>The appearance of my application</h2>
-![Screenshot (324)](https://github.com/user-attachments/assets/a51f5f8f-ee16-46a2-9bf9-14a03f1c3a52)
+	![Screenshot (324)](https://github.com/user-attachments/assets/a51f5f8f-ee16-46a2-9bf9-14a03f1c3a52)
 ![Screenshot (325)](https://github.com/user-attachments/assets/71d6abbc-a3f4-44bf-bd0a-5ee3bf144586)
 ![Screenshot (326)](https://github.com/user-attachments/assets/3aa20283-e908-4804-b363-8036f69a8d0f)
 ![Screenshot (327)](https://github.com/user-attachments/assets/3c069177-1961-479c-a659-b74588b84192)
