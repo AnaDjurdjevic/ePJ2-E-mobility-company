@@ -10,7 +10,7 @@ ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters i
 The company manages a number of cars, with the following data stored: unique identifier (ID), purchase date, purchase price, manufacturer, model, description, and current battery level. For electric bicycles, the following data is stored: unique identifier (ID), manufacturer, model, purchase price, current battery level, and range per charge (autonomy). For electric scooters, the stored data includes: unique identifier (ID), manufacturer, model, current battery level, purchase price, and maximum speed. All vehicles can experience breakdowns, for which the reason (description), date, and time are recorded. All vehicles have battery charging capabilities (a method that increases the current level). Battery discharge occurs during movement, and cars have the capacity to transport multiple passengers.
 The core business of the company is vehicle rental. During the rental process, the date and time of the rental, the user's name, the current location where the vehicle was picked up, the location where the vehicle is returned after use, and the duration of use in seconds are recorded. For car rentals, an identification document (passport for foreign citizens and ID card for locals) and a driver's license (number) must be provided. Based on this information, a payment invoice is generated and delivered to the users as a txt file.
 The company defines rental prices for each type of vehicle based on the usage time in seconds. The total payment amount is calculated based on the duration of the ride and additional factors. These factors include the use of the vehicle in the wider city area, breakdowns, discounts, and promotions. The calculation method is given in a table, and all parameters are stored externally in properties files (https://www.baeldung.com/java-properties).    
-    
+ <br>   
 ![table](https://github.com/user-attachments/assets/d06ae13f-73b3-4e21-ad6b-9f23e0b91ece)
     
 Example calculation:
@@ -43,7 +43,7 @@ Depending on the index number, one additional functionality from the following t
 3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
 <h2>The appearance of my application</h2>
-	![map](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/map.png)
+![map](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/map.png)
 ![cars](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/cars.png)
 ![scooters](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/scooters.png)
 ![malfunctions](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/malfunctions.png)
