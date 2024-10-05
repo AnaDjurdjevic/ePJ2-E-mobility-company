@@ -1,11 +1,11 @@
-<h1>Short description </h1>   
+<h2>Short description </h2>   
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the city of Java. 
 The goal of this application is to simulate the usage of these vehicles based on predefined data, 
 generate detailed financial reports, track vehicle status, and provide business statistics. 
 The system manages vehicle rentals, calculates costs based on time, distance, and other factors (like breakdowns or promotions),
 and displays real-time simulations of vehicle movements on a map.
 
-<h1>Project assignment text</h1>    
+<h2>Project assignment text</h2>    
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the narrow and wider areas of the city of Java. The goal of this project is to develop a program that simulates the usage of these vehicles based on predefined data, generates detailed financial reports, provides statistics, and tracks the status of all vehicles in use.
 
 The company manages a number of cars, with the following data stored: unique identifier (ID), purchase date, purchase price, manufacturer, model, description, and current battery level. For electric bicycles, the following data is stored: unique identifier (ID), manufacturer, model, purchase price, current battery level, and range per charge (autonomy). For electric scooters, the stored data includes: unique identifier (ID), manufacturer, model, current battery level, purchase price, and maximum speed. All vehicles can experience breakdowns, for which the reason (description), date, and time are recorded. All vehicles have battery charging capabilities (a method that increases the current level). Battery discharge occurs during movement, and cars have the capacity to transport multiple passengers.
@@ -34,22 +34,21 @@ The map consists of a 20x20 grid. The fields marked in white (outer) represent t
 
 The business results should display all revenues (amounts from generated invoices) and all additional parameters relevant to the business. There are two types of reports: summary and daily. For the summary report, the following data should be displayed:
 
-Total revenue (sum of all payment amounts on all invoices),
-Total discount (sum of all discount amounts from all invoices),
-Total promotions (sum of all promotion values from all invoices),
-Total revenue from rides in the narrow and wide parts of the city,
-Total maintenance cost (total revenue * 0.2),
-Total repair costs (coefficient (cars 0.07, bicycles 0.04, scooters 0.02) * purchase price of the broken vehicle). This is calculated as the sum of all individual breakdowns.
-Total company costs (20% of total revenue), and
-Total tax (total revenue - total maintenance costs - total repair costs - company costs) * 10%.
+1. Total revenue (sum of all payment amounts on all invoices),
+2. Total discount (sum of all discount amounts from all invoices),
+3. Total promotions (sum of all promotion values from all invoices),
+4. Total revenue from rides in the narrow and wide parts of the city,
+5. Total maintenance cost (total revenue * 0.2),
+6. Total repair costs (coefficient (cars 0.07, bicycles 0.04, scooters 0.02) * purchase price of the broken vehicle). This is calculated as the sum of all individual breakdowns.
+7. Total company costs (20% of total revenue), and
+8. Total tax (total revenue - total maintenance costs - total repair costs - company costs) * 10%.
 Daily reports display items 1-6 grouped by date. All available dates should be shown. This report is presented in a table format.
 Depending on the index number, one additional functionality from the following three must be implemented (e.g., 1234/24 => sum of digits is 1+2+3+4+2+4 = 16, (16%3 + 1)=2):
-
-Finding the vehicles that generated the most revenue for each type,
-Finding the vehicles that incurred the most losses for each type,
-Finding the vehicles that broke down and calculating the repair costs.
+1. Finding the vehicles that generated the most revenue for each type,
+2. Finding the vehicles that incurred the most losses for each type,
+3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
-<h1>The appearance of my application</h1>    
+<h2>The appearance of my application</h2>    
 ![Screenshot (324)](https://github.com/user-attachments/assets/a51f5f8f-ee16-46a2-9bf9-14a03f1c3a52)
 ![Screenshot (325)](https://github.com/user-attachments/assets/71d6abbc-a3f4-44bf-bd0a-5ee3bf144586)
 ![Screenshot (326)](https://github.com/user-attachments/assets/3aa20283-e908-4804-b363-8036f69a8d0f)
