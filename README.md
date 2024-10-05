@@ -1,11 +1,11 @@
-#Short description    
+<h1>Short description </h1>   
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the city of Java. 
 The goal of this application is to simulate the usage of these vehicles based on predefined data, 
 generate detailed financial reports, track vehicle status, and provide business statistics. 
 The system manages vehicle rentals, calculates costs based on time, distance, and other factors (like breakdowns or promotions),
 and displays real-time simulations of vehicle movements on a map.
 
-#Project assignment text    
+<h1>Project assignment text</h1>    
 ePJ2 is an e-mobility company that rents electric cars, bicycles, and scooters in the narrow and wider areas of the city of Java. The goal of this project is to develop a program that simulates the usage of these vehicles based on predefined data, generates detailed financial reports, provides statistics, and tracks the status of all vehicles in use.
 
 The company manages a number of cars, with the following data stored: unique identifier (ID), purchase date, purchase price, manufacturer, model, description, and current battery level. For electric bicycles, the following data is stored: unique identifier (ID), manufacturer, model, purchase price, current battery level, and range per charge (autonomy). For electric scooters, the stored data includes: unique identifier (ID), manufacturer, model, current battery level, purchase price, and maximum speed. All vehicles can experience breakdowns, for which the reason (description), date, and time are recorded. All vehicles have battery charging capabilities (a method that increases the current level). Battery discharge occurs during movement, and cars have the capacity to transport multiple passengers.
