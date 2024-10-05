@@ -43,11 +43,11 @@ Depending on the index number, one additional functionality from the following t
 3. Finding the vehicles that broke down and calculating the repair costs.
 These data are individually serialized into binary files, where the vehicle object with all fields and amounts is stored in a specific folder. It is also necessary to implement a screen where these data can be deserialized and displayed.    
 <h2>The appearance of my application</h2>
-	![Screenshot (324)](https://github.com/user-attachments/assets/a51f5f8f-ee16-46a2-9bf9-14a03f1c3a52)
-![Screenshot (325)](https://github.com/user-attachments/assets/71d6abbc-a3f4-44bf-bd0a-5ee3bf144586)
-![Screenshot (326)](https://github.com/user-attachments/assets/3aa20283-e908-4804-b363-8036f69a8d0f)
-![Screenshot (327)](https://github.com/user-attachments/assets/3c069177-1961-479c-a659-b74588b84192)
-![Screenshot (328)](https://github.com/user-attachments/assets/471fbcaa-af60-46cf-b749-21448a3ad908)
-![Screenshot (329)](https://github.com/user-attachments/assets/340b918e-7d68-40a3-8fe7-6590415a0735)
-![Screenshot (330)](https://github.com/user-attachments/assets/7d2c05fb-b0b0-4669-ba31-d8c72e6aaae4)
-![Screenshot (331)](https://github.com/user-attachments/assets/ac6884bb-fa83-4129-8271-bf9f7bee0bb4)
+	![map](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/map.png)
+![cars](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/cars.png)
+![scooters](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/scooters.png)
+![malfunctions](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/malfunctions.png)
+![businessResults](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/businessResults.png)
+![repairCosts](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/repairCosts.png)
+![billMalfunction](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/billMalfunction.png)
+![bill](https://github.com/AnaDjurdjevic/ePJ2-E-mobility-company/blob/main/Gui_Slike/bill.png)
